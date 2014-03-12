@@ -1,1 +1,1 @@
-March, 12: 14:00 - 18:00
+March, 12: 14:00 - 18:00 (Set up GitHub and Project Files)
