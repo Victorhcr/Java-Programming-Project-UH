@@ -34,7 +34,7 @@ public class Chart extends Application {
         System.out.println("1");
     }
     
-    public static void main(String[] args) {
+    public void laun(String[] args) {
         launch(args);
     }
 

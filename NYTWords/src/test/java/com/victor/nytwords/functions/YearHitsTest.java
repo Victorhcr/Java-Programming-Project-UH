@@ -213,4 +213,40 @@ public class YearHitsTest {
         assertEquals("Result for word love in non past year should be 0", 0, total);
     }
     
+    /* Number as word and an existing year */
+    @Test
+    public void testAddHits9() {
+        YearHits yh = new YearHits();
+        String word = "9023740";
+        int beg = 2013;
+        int end = 2013;
+        
+        int total = 0;
+        try {
+            total = Integer.parseInt(yh.addHits(word, beg, end).get(2013).toString());
+        } catch (Exception ex) {
+            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        assertEquals("Result for word 9023740 should be 0", 0, total);
+    }
+    
+    /* Word with space and an existing year */
+    @Test
+    public void testAddHits10() {
+        YearHits yh = new YearHits();
+        String word = "war love";
+        int beg = 2013;
+        int end = 2013;
+        
+        int total = 0;
+        try {
+            total = Integer.parseInt(yh.addHits(word, beg, end).get(2013).toString());
+        } catch (Exception ex) {
+            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        assertEquals("Result for word war love should be 470", 470, total);
+    }
+    
 }

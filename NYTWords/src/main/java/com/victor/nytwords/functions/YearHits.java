@@ -63,7 +63,9 @@ public class YearHits {
     public HashMap addHits(String word, int beg,int end) throws Exception{
         HashMap<Integer,Integer> result = new HashMap();
         String json;
-        if(checkEntries(word, beg, end)){
+        word = java.net.URLEncoder.encode(word, "UTF-8");
+        System.out.println(word);
+        if(checkEntriesBound(word, beg, end)){
             word = "\"\"";
             end = 2013;
             beg = 2013;
@@ -79,12 +81,14 @@ public class YearHits {
         return result;
     }
     
-    private boolean checkEntries(String word, int beg, int end){
+    private boolean checkEntriesBound(String word, int beg, int end){
         if(word.equals("") || beg > end || end > 2013){
             return true;
         }
         return false;
     }
+    
+    
     
     
     private String readUrl(String urlString) throws Exception {

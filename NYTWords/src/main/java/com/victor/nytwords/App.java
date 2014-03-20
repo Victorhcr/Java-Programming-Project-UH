@@ -16,6 +16,9 @@ public class App
     {
         YearHits hits = new YearHits();
         hits.start();
+        
+        Chart c = new Chart(hits.getWord(),hits.getBeg(),hits.getEnd());
+        c.laun(args);
     }
 
     
