@@ -1,0 +1,4 @@
+Article hits with word "war"
+2011: 3118
+2012: 4498
+2013: 5715

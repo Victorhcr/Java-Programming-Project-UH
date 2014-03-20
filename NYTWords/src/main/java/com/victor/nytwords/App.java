@@ -1,13 +1,23 @@
 package com.victor.nytwords;
 
-/**
- * Hello world!
- *
- */
-public class App 
+import com.victor.nytwords.functions.Chart;
+import com.victor.nytwords.functions.YearHits;
+import java.io.FileReader;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+    
+
+public class App
 {
-    public static void main( String[] args )
+    
+    public static void main( String[] args ) throws IOException 
     {
-        System.out.println( "Hello World!" );
+        YearHits hits = new YearHits();
+        hits.start();
     }
+
+    
+    
 }
