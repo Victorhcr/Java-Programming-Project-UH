@@ -64,7 +64,6 @@ public class YearHits {
         HashMap<Integer,Integer> result = new HashMap();
         String json;
         word = java.net.URLEncoder.encode(word, "UTF-8");
-        System.out.println(word);
         if(checkEntriesBound(word, beg, end)){
             word = "\"\"";
             end = 2013;
