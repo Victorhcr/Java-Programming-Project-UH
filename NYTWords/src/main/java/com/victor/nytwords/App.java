@@ -1,26 +1,24 @@
 package com.victor.nytwords;
 
 import com.victor.nytwords.functions.Chart;
+import com.victor.nytwords.functions.LinReg;
 import com.victor.nytwords.functions.YearHits;
-import java.io.FileReader;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.stage.Stage;
+
+public class App {
 
     
 
-public class App
-{
-    
-    public static void main( String[] args ) throws IOException 
-    {
+    public static void main(String[] args) throws IOException {
         YearHits hits = new YearHits();
         hits.start();
+
+        Chart c = new Chart(hits.getWord(),hits.getBeg(),hits.getEnd(),args);
         
-        Chart c = new Chart(hits.getWord(),hits.getBeg(),hits.getEnd());
-        c.laun(args);
+        
     }
 
-    
-    
+   
+
+
 }

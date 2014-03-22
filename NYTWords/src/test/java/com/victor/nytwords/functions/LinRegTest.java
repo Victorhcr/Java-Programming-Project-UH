@@ -6,10 +6,13 @@
 
 package com.victor.nytwords.functions;
 
+
 /**
  *
  * @author Victorhcr
  */
-public class FFT {
+public class LinRegTest {
+    
+
     
 }

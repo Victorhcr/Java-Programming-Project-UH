@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +43,8 @@ public class YearHits {
         }
         
         writeFile();
+        writeFilePred();
+        writeFileMain();
     }
     
     private void ask(){
@@ -61,8 +62,9 @@ public class YearHits {
     /* Add number of articles for the word chosen 
      * in each year in the interval beg-end */
     public HashMap addHits(String word, int beg,int end) throws Exception{
-        HashMap<Integer,Integer> result = new HashMap();
-        String json;
+        HashMap<Double,Double> result = new HashMap();
+        String jsonWord;
+        String jsonTotal;
         word = java.net.URLEncoder.encode(word, "UTF-8");
         if(checkEntriesBound(word, beg, end)){
             word = "\"\"";
@@ -72,9 +74,13 @@ public class YearHits {
         int temp = beg;
         
         while(temp <= end){
-            json = readUrl("http://api.nytimes.com/svc/search/v2/articlesearch.json?callback=svc_search_v2_articlesearch&q=" + word + "&fq=International&begin_date=" + temp + "0101&end_date=" + temp + "1231&sort=newest&fl=web_url&facet_filter=true&api-"
+            jsonWord = readUrl("http://api.nytimes.com/svc/search/v2/articlesearch.json?callback=svc_search_v2_articlesearch&q=" + word + "&fq=International&begin_date=" + temp + "0101&end_date=" + temp + "1231&sort=newest&fl=web_url&facet_filter=true&api-"
                 + "key=4ddea52e9d7cc30124e3efe576c26530:14:68745688");
-            result.put(temp, parse(json));
+            jsonTotal = readUrl("http://api.nytimes.com/svc/search/v2/articlesearch.json?callback=svc_search_v2_articlesearch&fq=International&begin_date=" + temp + "0101&end_date=" + temp + "1231&sort=newest&fl=web_url&facet_filter=true&api-"
+                + "key=4ddea52e9d7cc30124e3efe576c26530:14:68745688");
+            
+            
+            result.put((double) temp, parse(jsonWord)/parse(jsonTotal));
             temp++;
         }
         return result;
@@ -86,8 +92,6 @@ public class YearHits {
         }
         return false;
     }
-    
-    
     
     
     private String readUrl(String urlString) throws Exception {
@@ -108,25 +112,43 @@ public class YearHits {
         }
     }
     
-    private int parse(String jsonLine) {
+    private double parse(String jsonLine) {
         JsonElement jelement = new JsonParser().parse(jsonLine);
         JsonObject  jobject = jelement.getAsJsonObject();
         jobject = jobject.getAsJsonObject("response");
         JsonObject jobject2 = jobject.getAsJsonObject("meta");      
         
-        return jobject2.get("hits").getAsInt();
+        return jobject2.get("hits").getAsDouble();
     }
     
-    private void writeFile() throws IOException{
+    private void writeFileMain() throws IOException{
+        FileWriter main = new FileWriter("files/main.txt");
+        main.append(word + "\n");
+        main.append(beg + "\n");
+        main.append(end + "\n");
+        main.close();
+    }
+    
+    private void writeFile() throws IOException{  
         FileWriter file = new FileWriter("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
         
         List sortedKeys = new ArrayList(this.yearHits.keySet());
         Collections.sort(sortedKeys);
         
         for(Object year : sortedKeys){
-            file.append(year.toString() + ": " + this.yearHits.get(year) + "\n");
+            file.append(String.format( "%.0f", year) + ": " + String.format( "%.2f", this.yearHits.get(year)) + "\n");
         }
+        file.append("-");
         
+        file.close();
+    }
+    
+    private void writeFilePred() throws IOException{
+        FileWriter file = new FileWriter("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
+        LinReg lr = new LinReg(this.yearHits);
+        file.append(String.format( "%.0f", lr.max()) + ": " + String.format( "%.2f", this.yearHits.get(lr.max())) + "\n");
+        file.append(String.format( "%.0f", lr.max()+1) + ": " + String.format( "%.2f", lr.predict()) + "\n");
+        file.append("-");
         file.close();
     }
     
