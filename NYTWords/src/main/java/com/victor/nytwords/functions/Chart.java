@@ -3,16 +3,19 @@
  */
 package com.victor.nytwords.functions;
 
+import java.beans.EventHandler;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -23,6 +26,7 @@ public class Chart extends Application {
     private String word;
     private int beg;
     private int end;
+    private String[] args;
     private FileReader fileNorm;
     private FileReader filePred;
     private Stage stage;
@@ -30,24 +34,13 @@ public class Chart extends Application {
     public Chart() {
 
     }
-
-    public Chart(String word, int beg, int end,String[] args) {
-        this.word = word;
-        this.beg = beg;
-        this.end = end;
-        System.out.println("1");
-        System.out.println(this.word);
-        System.out.println(this.end);
-        System.out.println(this.beg);
-        
+    
+    public void startP() throws InterruptedException{
         main(args);
     }
     
-
-    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         launch(args);
-        
     }
 
     @Override
@@ -57,9 +50,6 @@ public class Chart extends Application {
         
         this.fileNorm = new FileReader("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
         this.filePred = new FileReader("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
-
-        
-        System.out.println("2");
 
         stage.setTitle("Article Hits Chart");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -120,7 +110,6 @@ public class Chart extends Application {
             br = new BufferedReader(file);
 
             while (!(sCurrentLine = br.readLine()).equals("-")) {
-                System.out.println(sCurrentLine);
                 parts = sCurrentLine.split(": ");
                 series.getData().add(new XYChart.Data(parts[0], Double.parseDouble(parts[1])));
             }
@@ -136,6 +125,17 @@ public class Chart extends Application {
             }
         }
 
-        System.out.println("3");
+    }
+    
+    public String getWord(){
+            return this.word;
+    }
+    
+    public int getBeg(){
+        return this.beg;
+    }
+    
+    public int getEnd(){
+        return this.end;
     }
 }

@@ -77,14 +77,14 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2012;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(beg).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word war during 2013-2012 should be 0", 0, total);
+        assertEquals(0, total,0.000001);
     }
     
     /* One word and one year */
@@ -95,14 +95,14 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(beg).toString());
+            total = (Double) yh.addHits(word, beg, end).get(2013.0);
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word war during 2013-2013 should be 5715", 5715, total);
+        assertEquals(20.955558814901732,total,0.000000000000001);
     }
     
     /* Another word and one year */
@@ -113,14 +113,14 @@ public class YearHitsTest {
         int beg = 2005;
         int end = 2005;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(beg).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2005.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word war during 2005-2005 should be 928", 928, total);
+        assertEquals(9.049244271087275, total,0.000000000000000001);
     }
     
     /* Empty word and random range of years */
@@ -131,14 +131,14 @@ public class YearHitsTest {
         int beg = 2003;
         int end = 2005;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(2013).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for empty word during 2003-2005 should be 0", 0, total);
+        assertEquals(0,total,0.000001);
     }
     
     /* One word and two years getting the first year */
@@ -149,14 +149,14 @@ public class YearHitsTest {
         int beg = 2000;
         int end = 2001;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(beg).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2000.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word war in year 2000 during 2000-2001 should be 2336", 2336, total);
+        assertEquals(21.659712563745945, total,0.0000000000000001);
     }
     
     /* Another word and two years getting the last year */
@@ -167,14 +167,14 @@ public class YearHitsTest {
         int beg = 2000;
         int end = 2001;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(end).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2001.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word love in year 2001 during 2000-2001 should be 964", 964, total);
+        assertEquals(8.486662558323797, total,0.0000000000001);
     }
     
     /* Non existent word and random range of years */
@@ -185,14 +185,14 @@ public class YearHitsTest {
         int beg = 2001;
         int end = 2001;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(beg).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2001.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word oishfoihefoiew should be 0", 0, total);
+        assertEquals(0, total,0.00001);
     }
     
     /* One word and a non existent years */
@@ -203,14 +203,14 @@ public class YearHitsTest {
         int beg = 2004902;
         int end = 3091283;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(2013).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word love in non past year should be 0", 0, total);
+        assertEquals(0, total,0.00001);
     }
     
     /* Number as word and an existing year */
@@ -221,14 +221,14 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(2013).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word 9023740 should be 0", 0, total);
+        assertEquals(0, total,0.0001);
     }
     
     /* Word with space and an existing year */
@@ -239,14 +239,16 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         
-        int total = 0;
+        double total = 0;
         try {
-            total = Integer.parseInt(yh.addHits(word, beg, end).get(2013).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals("Result for word war love should be 470", 470, total);
+        assertEquals(1.7233792901144032, total,0.00000000000001);
     }
+    
+    
     
 }

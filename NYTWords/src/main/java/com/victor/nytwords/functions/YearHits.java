@@ -33,6 +33,13 @@ public class YearHits {
         this.yearHits = new HashMap<>();
     }
     
+    public YearHits(String word, int beg, int end){
+        this.yearHits = new HashMap<>();
+        this.word = word;
+        this.beg = beg;
+        this.end = end;
+    }
+    
     public void start() throws IOException{
         ask();
         
@@ -79,8 +86,7 @@ public class YearHits {
             jsonTotal = readUrl("http://api.nytimes.com/svc/search/v2/articlesearch.json?callback=svc_search_v2_articlesearch&fq=International&begin_date=" + temp + "0101&end_date=" + temp + "1231&sort=newest&fl=web_url&facet_filter=true&api-"
                 + "key=4ddea52e9d7cc30124e3efe576c26530:14:68745688");
             
-            
-            result.put((double) temp, parse(jsonWord)/parse(jsonTotal));
+            result.put((double) temp, parse(jsonWord)*100/parse(jsonTotal));
             temp++;
         }
         return result;
