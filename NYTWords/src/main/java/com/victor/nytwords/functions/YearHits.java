@@ -19,14 +19,15 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
- * @author Victorhcr
+ * Gets Data from New York Times API
+ * and saves in the computer
+ * @author Victor Rodrigues
  */
 public class YearHits {
 
     private HashMap yearHits;
     private String word;
-    private int beg;
+    private int beg = -1;
     private int end;
     
     public YearHits(){
@@ -40,8 +41,14 @@ public class YearHits {
         this.end = end;
     }
     
+    /**
+     * Start program with variables from View class
+     * @throws IOException 
+     */
     public void start() throws IOException{
-        ask();
+        if(beg == -1){
+            ask();
+        }
         
         try{
             this.yearHits = addHits(this.word,this.beg,this.end);
@@ -54,6 +61,9 @@ public class YearHits {
         writeFileMain();
     }
     
+    /**
+     * Ask user for variables if there is an error with View
+     */
     private void ask(){
         Scanner reader = new Scanner(System.in);
         System.out.println("Type a word: ");
@@ -92,6 +102,13 @@ public class YearHits {
         return result;
     }
     
+    /**
+     * Check if entries are valid for the parsing
+     * @param word
+     * @param beg
+     * @param end
+     * @return 
+     */
     private boolean checkEntriesBound(String word, int beg, int end){
         if(word.equals("") || beg > end || end > 2013){
             return true;
@@ -99,7 +116,12 @@ public class YearHits {
         return false;
     }
     
-    
+    /**
+     * Read API URL Page
+     * @param urlString
+     * @return
+     * @throws Exception 
+     */
     private String readUrl(String urlString) throws Exception {
         BufferedReader reader = null;
         try {
@@ -118,6 +140,12 @@ public class YearHits {
         }
     }
     
+    /**
+     * Parse page received and get number 
+     * of articles with that word
+     * @param jsonLine
+     * @return 
+     */
     private double parse(String jsonLine) {
         JsonElement jelement = new JsonParser().parse(jsonLine);
         JsonObject  jobject = jelement.getAsJsonObject();
@@ -127,6 +155,12 @@ public class YearHits {
         return jobject2.get("hits").getAsDouble();
     }
     
+    /**
+     * Write file specifying the word,
+     * the first year and last year of
+     * last time (now) program was executed
+     * @throws IOException 
+     */
     private void writeFileMain() throws IOException{
         FileWriter main = new FileWriter("files/main.txt");
         main.append(word + "\n");
@@ -135,6 +169,10 @@ public class YearHits {
         main.close();
     }
     
+    /**
+     * Write file with all data normalized (in percentage per year)
+     * @throws IOException 
+     */
     private void writeFile() throws IOException{  
         FileWriter file = new FileWriter("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
         
@@ -149,6 +187,10 @@ public class YearHits {
         file.close();
     }
     
+    /**
+     * Predict the next year Article hits
+     * @throws IOException 
+     */
     private void writeFilePred() throws IOException{
         FileWriter file = new FileWriter("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
         LinReg lr = new LinReg(this.yearHits);
@@ -158,18 +200,34 @@ public class YearHits {
         file.close();
     }
     
+    /**
+     * Return word parsed
+     * @return 
+     */
     public String getWord(){
         return this.word;
     }
     
+    /**
+     * Return first year parsed 
+     * @return 
+     */
     public int getBeg(){
         return this.beg;
     }
     
+    /**
+     * Return last year parsed 
+     * @return 
+     */
     public int getEnd(){
         return this.end;
     }
     
+    /**
+     * Return HashMap
+     * @return 
+     */
     public HashMap getMap(){
         return this.yearHits;
     }

@@ -3,23 +3,20 @@
  */
 package com.victor.nytwords.functions;
 
-import java.beans.EventHandler;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
- *
- * @author Victorhcr
+ * This class will plot the data we have
+ * @author Victor Rodrigues
  */
 public class Chart extends Application {
 
@@ -35,6 +32,10 @@ public class Chart extends Application {
 
     }
     
+    /**
+     * This method starts the program
+     * @throws InterruptedException 
+     */
     public void startP() throws InterruptedException{
         main(args);
     }
@@ -43,6 +44,11 @@ public class Chart extends Application {
         launch(args);
     }
 
+    /**
+     * This method process the data and transform it into the wanted chart
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FileReader main = new FileReader("files/main.txt");
@@ -78,6 +84,11 @@ public class Chart extends Application {
         stage.show();
     }
     
+    /**
+     * This method gets data from file in user computer 
+     * and check which file to parse
+     * @param main 
+     */
     public void getData(FileReader main){
         BufferedReader br = null;
         try {
@@ -101,6 +112,12 @@ public class Chart extends Application {
         }
     }
 
+    /**
+     * This method adds the data parsed from chosen file in getData
+     * method and adds to the chart
+     * @param series
+     * @param file 
+     */
     public void addData(XYChart.Series series,FileReader file) {
         BufferedReader br = null;
         try {
@@ -127,14 +144,26 @@ public class Chart extends Application {
 
     }
     
+    /**
+     * Returns word to be plotted
+     * @return 
+     */
     public String getWord(){
             return this.word;
     }
     
+    /**
+     * Returns first year of the parsing
+     * @return 
+     */
     public int getBeg(){
         return this.beg;
     }
     
+    /**
+     * Returns last year of the parsing
+     * @return 
+     */
     public int getEnd(){
         return this.end;
     }

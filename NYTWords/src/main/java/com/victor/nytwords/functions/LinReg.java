@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- *
- * @author Victorhcr
+ * Predict the next point in a data set
+ * @author Victor Rodrigues
  */
 public class LinReg {
     private HashMap<Double,Double> points;
@@ -20,6 +20,11 @@ public class LinReg {
         this.points = hm;
     }
     
+    /**
+     * Calculate the average of numbers
+     * @param set
+     * @return 
+     */
     public double averageNormal(Collection<Double> set){
         double total = 0;
         int cnt = 0;
@@ -30,6 +35,11 @@ public class LinReg {
         return total/cnt;
     }
     
+    /**
+     * Calculate the average of squared numbers
+     * @param set
+     * @return 
+     */
     public double averageSquare(Collection<Double> set){
         double total = 0;
         int cnt = 0;
@@ -40,6 +50,11 @@ public class LinReg {
         return total/cnt;
     }
     
+    /**
+     * Calculate the average of multiplication of
+     * x coordinate times respective y coordinate
+     * @return 
+     */
     public double averageMult(){
         double total = 0;
         int cnt = 0;
@@ -50,6 +65,10 @@ public class LinReg {
         return total/cnt;
     }
     
+    /**
+     * Calculate angular coefficient (slope) of prediction line 
+     * @return 
+     */
     public double angCoef(){
         double avgNX = averageNormal(this.points.keySet());
         double avgNY = averageNormal(this.points.values());
@@ -62,7 +81,12 @@ public class LinReg {
         return num/den;
     }
     
-    public double b(){
+    /**
+     * Calculate linear coefficient (value of y when x = 0) 
+     * of prediction line
+     * @return 
+     */
+    public double linCoef(){
         double avgNX = averageNormal(this.points.keySet());
         double avgNY = averageNormal(this.points.values());
         
@@ -71,6 +95,10 @@ public class LinReg {
         return b;
     }
     
+    /**
+     * Find the maximum x value of the data
+     * @return 
+     */
     public double max(){
         double max = 0;
         int cnt = 0;
@@ -83,8 +111,12 @@ public class LinReg {
         return max;
     }
     
+    /**
+     * Predict y value of next year
+     * @return 
+     */
     public double predict(){
-        return (max()+1)*angCoef()+b();
+        return (max()+1)*angCoef()+linCoef();
     }
     
     

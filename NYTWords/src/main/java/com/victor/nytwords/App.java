@@ -8,11 +8,7 @@ public class App {
 
 
     public static void main(String[] args) throws IOException, Exception {
-        YearHits hits = new YearHits();
-        hits.start();
-
-        Chart c = new Chart();
-        c.startP();
+        View run = new View();
     }
 
    
