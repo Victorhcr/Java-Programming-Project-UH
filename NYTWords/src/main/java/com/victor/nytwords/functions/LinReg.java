@@ -118,6 +118,4 @@ public class LinReg {
     public double predict(){
         return (max()+1)*angCoef()+linCoef();
     }
-    
-    
 }

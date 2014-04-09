@@ -1,7 +1,5 @@
 package com.victor.nytwords;
 
-import com.victor.nytwords.functions.Chart;
-import com.victor.nytwords.functions.YearHits;
 import java.io.IOException;
 
 public class App {

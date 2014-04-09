@@ -134,8 +134,8 @@ public class View implements ActionListener {
                 try {
                     yh.start();
                     guiFrame.dispose();
-                    Chart c = new Chart();
-                    c.startP();
+                    Chart chart = new Chart();
+                    chart.startP();
                 } catch (IOException ex) {
                     Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {

@@ -69,186 +69,124 @@ public class YearHitsTest {
         assertEquals("Method " + result.get(1) + " is missing.", true, Boolean.parseBoolean(result.get(0)));
     }
     
-    /* One word and final year less than first year  */
-    @Test
-    public void testAddHits1() {
+    public void calculate(String word, int beg, int end, double get, double expected){
         YearHits yh = new YearHits();
-        String word = "war";
-        int beg = 2013;
-        int end = 2012;
-        
         double total = 0;
         try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
+            total = Double.parseDouble(yh.addHits(word, beg, end).get(get).toString());
         } catch (Exception ex) {
             Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        assertEquals(0, total,0.000001);
+        assertEquals(expected, total,0.0000000001);
+    }
+    
+    /* One word and final year less than first year  */
+    @Test
+    public void oneWordFinalYearLessFirstYear() {
+        String word = "war";
+        int beg = 2013;
+        int end = 2012;
+        double get = 2013.0;
+        calculate(word, beg, end, get,0);
     }
     
     /* One word and one year */
     @Test
-    public void testAddHits2() {
+    public void oneWordOneYear() {
         YearHits yh = new YearHits();
         String word = "war";
         int beg = 2013;
         int end = 2013;
-        
-        double total = 0;
-        try {
-            total = (Double) yh.addHits(word, beg, end).get(2013.0);
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(20.955558814901732,total,0.000000000000001);
+        double get = 2013.0;
+        calculate(word, beg, end, get,20.955558814901732);
     }
     
     /* Another word and one year */
     @Test
-    public void testAddHits3() {
+    public void differentWordOneYear() {
         YearHits yh = new YearHits();
         String word = "love";
         int beg = 2005;
         int end = 2005;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2005.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(9.049244271087275, total,0.000000000000000001);
+        double get = 2005.0;
+        calculate(word, beg, end, get,9.049244271087275);
     }
     
     /* Empty word and random range of years */
     @Test
-    public void testAddHits4() {
+    public void emptyWordRandomRangeYears() {
         YearHits yh = new YearHits();
         String word = "";
         int beg = 2003;
         int end = 2005;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(0,total,0.000001);
+        double get = 2013.0;
+        calculate(word, beg, end, get,0);
     }
     
     /* One word and two years getting the first year */
     @Test
-    public void testAddHits5() {
+    public void oneWordTwoYearsGettingFirstYear() {
         YearHits yh = new YearHits();
         String word = "war";
         int beg = 2000;
         int end = 2001;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2000.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(21.659712563745945, total,0.0000000000000001);
+        double get = 2000.0;
+        calculate(word, beg, end, get,21.659712563745945);
     }
     
     /* Another word and two years getting the last year */
     @Test
-    public void testAddHits6() {
+    public void anotherWordTwoYearsGettingLastYear() {
         YearHits yh = new YearHits();
         String word = "love";
         int beg = 2000;
         int end = 2001;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2001.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(8.486662558323797, total,0.0000000000001);
+        double get = 2001.0;
+        calculate(word, beg, end, get,8.486662558323797);
     }
     
     /* Non existent word and random range of years */
     @Test
-    public void testAddHits7() {
+    public void nonExistingWordRandomRangeYears() {
         YearHits yh = new YearHits();
         String word = "oishfoihefoiew";
         int beg = 2001;
         int end = 2001;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2001.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(0, total,0.00001);
+        double get = 2001.0;
+        calculate(word, beg, end, get,0);
     }
     
     /* One word and a non existent years */
     @Test
-    public void testAddHits8() {
+    public void oneWordNonExistingYears() {
         YearHits yh = new YearHits();
         String word = "love";
         int beg = 2004902;
         int end = 3091283;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(0, total,0.00001);
+        double get = 2013.0;
+        calculate(word, beg, end, get,0);
     }
     
     /* Number as word and an existing year */
     @Test
-    public void testAddHits9() {
+    public void numberAsWordExistingYear() {
         YearHits yh = new YearHits();
         String word = "9023740";
         int beg = 2013;
         int end = 2013;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(0, total,0.0001);
+        double get = 2013.0;
+        calculate(word, beg, end, get,0);
     }
     
     /* Word with space and an existing year */
     @Test
-    public void testAddHits10() {
+    public void wordWithSpaceExistingYear() {
         YearHits yh = new YearHits();
         String word = "war love";
         int beg = 2013;
         int end = 2013;
-        
-        double total = 0;
-        try {
-            total = Double.parseDouble(yh.addHits(word, beg, end).get(2013.0).toString());
-        } catch (Exception ex) {
-            Logger.getLogger(YearHitsTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        assertEquals(1.7233792901144032, total,0.00000000000001);
+        double get = 2013.0;
+        calculate(word, beg, end, get,1.7233792901144032);
     }
-    
-    
-    
 }
