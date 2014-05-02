@@ -68,4 +68,14 @@ public class LinRegTest {
         assertEquals(expResult, result, 0.00);
     }
     
+    /**
+     * Test of angCoef method, of class LinReg.
+     */
+    @Test
+    public void testangCoef() {
+        double expResult = 1.0000000002326033;
+        double result = this.lr.angCoef();
+        assertEquals(expResult, result, 0.00);
+    }
+    
 }

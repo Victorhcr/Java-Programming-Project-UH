@@ -4,19 +4,15 @@
  */
 package com.victor.nytwords.functions;
 
+import com.victor.nytwords.filehandler.FileHandle;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Gets Data from New York Times API
@@ -29,6 +25,7 @@ public class YearHits {
     private String word;
     private int beg = -1;
     private int end;
+    private FileHandle handle;
     
     public YearHits(){
         this.yearHits = new HashMap<>();
@@ -46,34 +43,16 @@ public class YearHits {
      * @throws IOException 
      */
     public void start() throws IOException{
-        if(beg == -1){
-            ask();
-        }
-        
         try{
             this.yearHits = addHits(this.word,this.beg,this.end);
         } catch (Exception e) {
             System.out.println("Problem in adding hits for word. More: \n" + e);
-        }
+        } 
+        this.handle = new FileHandle(this.word,this.beg,this.end,this.yearHits);
         
         writeFile();
         writeFilePred();
         writeFileMain();
-    }
-    
-    /**
-     * Ask user for variables if there is an error with View
-     */
-    private void ask(){
-        Scanner reader = new Scanner(System.in);
-        System.out.println("Type a word: ");
-        this.word = reader.nextLine();
-        
-        System.out.println("Type beginning year: ");
-        this.beg = Integer.parseInt(reader.nextLine());
-        
-        System.out.println("Type final year: ");
-        this.end = Integer.parseInt(reader.nextLine());
     }
     
     /* Add number of articles for the word chosen 
@@ -162,11 +141,7 @@ public class YearHits {
      * @throws IOException 
      */
     private void writeFileMain() throws IOException{
-        FileWriter main = new FileWriter("files/main.txt");
-        main.append(word + "\n");
-        main.append(beg + "\n");
-        main.append(end + "\n");
-        main.close();
+        this.handle.writeFileMain();
     }
     
     /**
@@ -174,17 +149,7 @@ public class YearHits {
      * @throws IOException 
      */
     private void writeFile() throws IOException{  
-        FileWriter file = new FileWriter("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
-        
-        List sortedKeys = new ArrayList(this.yearHits.keySet());
-        Collections.sort(sortedKeys);
-        
-        for(Object year : sortedKeys){
-            file.append(String.format( "%.0f", year) + ": " + String.format( "%.2f", this.yearHits.get(year)) + "\n");
-        }
-        file.append("-");
-        
-        file.close();
+        this.handle.writeFile();
     }
     
     /**
@@ -192,12 +157,8 @@ public class YearHits {
      * @throws IOException 
      */
     private void writeFilePred() throws IOException{
-        FileWriter file = new FileWriter("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
-        LinReg lr = new LinReg(this.yearHits);
-        file.append(String.format( "%.0f", lr.max()) + ": " + String.format( "%.2f", this.yearHits.get(lr.max())) + "\n");
-        file.append(String.format( "%.0f", lr.max()+1) + ": " + String.format( "%.2f", lr.predict()) + "\n");
-        file.append("-");
-        file.close();
+        FileHandle handle = new FileHandle(this.word,this.beg,this.end,this.yearHits);
+        handle.writeFilePred();
     }
     
     /**

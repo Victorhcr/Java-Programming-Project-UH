@@ -99,7 +99,7 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         double get = 2013.0;
-        calculate(word, beg, end, get,20.955558814901732);
+        calculate(word, beg, end, get,20.95898451830655);
     }
     
     /* Another word and one year */
@@ -187,6 +187,6 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         double get = 2013.0;
-        calculate(word, beg, end, get,1.7233792901144032);
+        calculate(word, beg, end, get,1.7242644361288428);
     }
 }
