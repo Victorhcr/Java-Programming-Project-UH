@@ -61,6 +61,12 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         }
     }
     
+    
+    /**
+     * Avoid errors in the program by replacing characters in the user's input
+     * @param word
+     * @return 
+     */
     public String replace(String word){
         word = word.replace("/", "");
         word = word.replace("\\", "");
