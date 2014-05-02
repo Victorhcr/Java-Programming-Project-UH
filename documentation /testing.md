@@ -1,6 +1,17 @@
-March, 12: 14:00 - 18:00 (Set up GitHub and Project Files)
-March, 19: 15:00 - 19:00 (Connect to The New York Times API, get data from API, retrieve data received and created chart using JAVAFX)
-March, 20: 14:30 - 16:00 (Tried to find a way of creating a chart using a separate class, and not the main class - Not successful)
-March 21-27: ~ (The chart now works in a separate class and the there is a prediction of the data. The cobertura tests cover more than 50%, as requested. Still need to do some code cleanning)
-March 28-4: ~ (Created a GUI where the user can type a word, choose the range of years he wants to see - max of 25 years - and then call the JAVAFX chart to plot the data received. I don't know how to make the user call a chart more than once without crashing the program. My solution is to disable the "Search" option and just show the chart once. If the user wants to get the data of other words, he needs to run the program again. I still need to find a way of reducing the length of the View method).
-March 5-10: ~ (Corrected the clean code issue. Created Sequence Diagram. New reports generated. Key tests are already created)
+What did you not test automatically and why?
+
+1) I did not test if the points are shown correctly in the chart.
+2) I did not test if the data coming from NYTimes is correct.
+3) I did not test the FileHandle class.
+
+How have these things been tested manually?
+
+1) I opened the text document and compared with the chart for more than 20 tests, and all of them showed the precise result.
+
+2) This is a difficult thing, since there are thousands of articles published by NYTimes every year. To make sure that the data coming from the website makes sense I plotted some famous words like war, and the plot showed peaks where it would be expected (for example during the World War II and the Two Tower incident in New York). I also searched for non existent words and the plot showed the expected result.
+
+3) I didn't see a reason to test it, since I already tested if the data coming from the API was parsed correctly (YearHits and LinReg classes), and I could easily check if the files were saved or not. If there were some errors, I could easily see where to correct, since FileHandle class' methods were divided in really different tasks and there were just three of them.
+
+Bugs:
+
+There was a bug related to special characters, but it seems they are resolved now. Another problem it may happend is for people without Java 8, or JavaFX SDK. Those people probably won't be able to see the chart.

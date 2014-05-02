@@ -157,8 +157,7 @@ public class YearHits {
      * @throws IOException 
      */
     private void writeFilePred() throws IOException{
-        FileHandle handle = new FileHandle(this.word,this.beg,this.end,this.yearHits);
-        handle.writeFilePred();
+        this.handle.writeFilePred();
     }
     
     /**
