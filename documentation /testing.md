@@ -14,4 +14,7 @@ How have these things been tested manually?
 
 Bugs:
 
-There was a bug related to special characters, but it seems they are resolved now. Another problem it may happend is for people without Java 8, or JavaFX SDK. Those people probably won't be able to see the chart.
+There was a bug related to special characters, but it seems they are resolved now. 
+
+There was a huge problem in the last version of the program, since it worked smoothly in my computer, but the university would need an update in their computers (using root permissions) to make my program work. Now I updated the plotting system and it should work perfectly.
+
