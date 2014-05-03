@@ -1,24 +1,21 @@
-/*
- * This class is still on construction. Please do not evaluate this.
- */
 package com.victor.nytwords.gui;
 
+import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.stage.Stage;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleInsets;
 
-/**
- * This class will plot the data we have
- * @author Victor Rodrigues
- */
-public class Chart extends Application {
+public class Chart {
 
     private String word;
     private int beg;
@@ -26,83 +23,71 @@ public class Chart extends Application {
     private String[] args;
     private FileReader fileNorm;
     private FileReader filePred;
-    private Stage stage;
-    
-    public Chart() {
 
-    }
-    
-    /**
-     * This method starts the program
-     * @throws InterruptedException 
-     */
-    public void startP() throws InterruptedException{
-        main(args);
-    }
-    
-    public static void main(String[] args) throws InterruptedException {
-        launch(args);
-    }
-
-    /**
-     * This method process the data and transform it into the wanted chart
-     * @param stage
-     * @throws Exception 
-     */
-    @Override
-    public void start(Stage stage) throws Exception {
+    public Chart() throws FileNotFoundException {
         FileReader main = new FileReader("files/main.txt");
         getData(main);
-        
+
         this.fileNorm = new FileReader("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
         this.filePred = new FileReader("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
 
-        stage.setTitle("Article Hits Chart");
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Year");
-        final LineChart<String, Number> lineChart
-                = new LineChart<String, Number>(xAxis, yAxis);
+        try {
 
-        lineChart.setTitle("New York Times Articles");
-        lineChart.setCreateSymbols(false);
-        lineChart.setAlternativeRowFillVisible(false);
-        
-        XYChart.Series series1 = new XYChart.Series();
-        setSeries(series1, "Word: " + this.word, this.fileNorm);
+            XYSeries series1 = new XYSeries("Word: " + this.word);
+            addData(series1, this.fileNorm);
 
-        XYChart.Series series2 = new XYChart.Series();
-        setSeries(series2, "Prediction", this.filePred);
-        
-        Scene scene = new Scene(lineChart);
-        lineChart.getData().addAll(series1,series2);
-        //scene.getStylesheets().add("linechartsample/Chart.css");                      
-        stage.setScene(scene);
-        stage.show();
+            XYSeries series2 = new XYSeries("Prediction");
+            addData(series2, this.filePred);
+
+            XYSeriesCollection xyDataset = new XYSeriesCollection();
+            xyDataset.addSeries(series1);
+            xyDataset.addSeries(series2);
+
+            JFreeChart chart = ChartFactory.createXYLineChart("Article Hits Chart", "Years", "Percentage of Articles", xyDataset, PlotOrientation.VERTICAL, true, false, false);
+            chart.setBackgroundPaint(Color.yellow);
+
+            XYPlot plot = (XYPlot) chart.getPlot();
+            setPlot(plot);
+
+            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
+            renderer.setBaseShapesVisible(true);
+            renderer.setBaseShapesFilled(true);
+
+            ChartFrame frame = new ChartFrame("New York Times Articles", chart);
+            frame.setSize(450, 250);
+            frame.setVisible(true);
+
+        } catch (Exception i) {
+            System.out.println(i);
+        }
     }
+
     
     /**
-     * This method adds the data to the series parameter
-     * @param series
-     * @param name
-     * @param file 
+     * This method sets the plot characteristics
+     * @param plot 
      */
-    public void setSeries(XYChart.Series series, String name, FileReader file){
-        series.setName(name);
-        addData(series,file);
+    public void setPlot(XYPlot plot) {
+        plot.setBackgroundPaint(Color.white);
+        plot.setDomainGridlinePaint(Color.GREEN);
+        plot.setRangeGridlinePaint(Color.orange);
+        plot.setAxisOffset(new RectangleInsets(50, 0, 20, 5));
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
     }
-    
+
     /**
-     * This method gets data from file in user computer 
-     * and check which file to parse
-     * @param main 
+     * This method gets data from file in user computer and check which file to
+     * parse
+     *
+     * @param main
      */
-    public void getData(FileReader main){
+    public void getData(FileReader main) {
         BufferedReader br = null;
         try {
             String sCurrentLine;
             br = new BufferedReader(main);
-            
+
             this.word = br.readLine();
             this.beg = Integer.parseInt(br.readLine());
             this.end = Integer.parseInt(br.readLine());
@@ -121,12 +106,13 @@ public class Chart extends Application {
     }
 
     /**
-     * This method adds the data parsed from chosen file in getData
-     * method and adds to the chart
+     * This method adds the data parsed from chosen file in getData method and
+     * adds to the chart
+     *
      * @param series
-     * @param file 
+     * @param file
      */
-    public void addData(XYChart.Series series,FileReader file) {
+    public void addData(XYSeries series, FileReader file) {
         BufferedReader br = null;
         try {
             String sCurrentLine;
@@ -136,7 +122,7 @@ public class Chart extends Application {
 
             while (!(sCurrentLine = br.readLine()).equals("-")) {
                 parts = sCurrentLine.split(": ");
-                series.getData().add(new XYChart.Data(parts[0], Double.parseDouble(parts[1])));
+                series.add(Integer.parseInt(parts[0]), Double.parseDouble(parts[1]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,28 +136,31 @@ public class Chart extends Application {
             }
         }
     }
-    
+
     /**
      * Returns word to be plotted
-     * @return 
+     *
+     * @return
      */
-    public String getWord(){
-            return this.word;
+    public String getWord() {
+        return this.word;
     }
-    
+
     /**
      * Returns first year of the parsing
-     * @return 
+     *
+     * @return
      */
-    public int getBeg(){
+    public int getBeg() {
         return this.beg;
     }
-    
+
     /**
      * Returns last year of the parsing
-     * @return 
+     *
+     * @return
      */
-    public int getEnd(){
+    public int getEnd() {
         return this.end;
     }
 }

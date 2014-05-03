@@ -5,9 +5,9 @@
  */
 package com.victor.nytwords.listener;
 
-import com.victor.nytwords.gui.View;
-import com.victor.nytwords.gui.Chart;
 import com.victor.nytwords.functions.YearHits;
+import com.victor.nytwords.gui.Chart;
+import com.victor.nytwords.gui.View;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -43,7 +43,6 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         //Execute when button is pressed
         String word = input.getText();
         word = replace(word);
-        System.out.println(word);
         if (lastYears.getSelectedItem()==null) return;
         int beg = Integer.parseInt(String.valueOf(firstYears.getSelectedItem()));
         int end = Integer.parseInt(String.valueOf(lastYears.getSelectedItem()));
@@ -51,12 +50,8 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         YearHits yh = new YearHits(word, beg, end);
         try {
             yh.start();
-            guiFrame.dispose();
             Chart chart = new Chart();
-            chart.startP();
         } catch (IOException ex) {
-            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

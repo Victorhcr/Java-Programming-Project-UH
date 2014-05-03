@@ -76,12 +76,8 @@ public class View {
 
         JButton createChart = new JButton("Create Chart!");
 
-        //Add action listener to button
-        //if (!input.getText().isEmpty() && !firstYears.getSelectedItem().toString().isEmpty()) {
-            ActionListener listenerButton = new CreateChartActionListener(input, guiFrame, firstYears, lastYears);
-            createChart.addActionListener(listenerButton);
-        //}
-        
+        ActionListener listenerButton = new CreateChartActionListener(input, guiFrame, firstYears, lastYears);
+        createChart.addActionListener(listenerButton);
 
         //The JFrame uses the BorderLayout layout manager.
         //Put the two JPanels and JButton in different areas.
