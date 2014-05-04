@@ -5,6 +5,7 @@
  */
 package com.victor.nytwords.listener;
 
+import com.victor.nytwords.filehandler.WordsFile;
 import com.victor.nytwords.functions.YearHits;
 import com.victor.nytwords.gui.Chart;
 import com.victor.nytwords.gui.View;
@@ -48,7 +49,9 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         int end = Integer.parseInt(String.valueOf(lastYears.getSelectedItem()));
         if (word.isEmpty()) return;
         YearHits yh = new YearHits(word, beg, end);
+        WordsFile wf = new WordsFile();
         try {
+            wf.updateWordsStatisticsFile(word);
             yh.start();
             Chart chart = new Chart();
         } catch (IOException ex) {
@@ -69,6 +72,16 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         word = word.replace(">", "");
         word = word.replace("{", "");
         word = word.replace("}", "");
+        word = word.replace(":", "");
+        word = word.replace("[", "");
+        word = word.replace("]", "");
+        word = word.replace("!", "");
+        word = word.replace("~", "");
+        word = word.replace("^", "");
+        word = word.replace("+", "");
+        word = word.replace("-", "");
+        word = word.replace("(", "");
+        word = word.replace(")", "");
         return word;
     }
 }

@@ -35,7 +35,7 @@ public class ChartTest {
         BufferedReader br = null;
         try {
             String sCurrentLine;
-            br = new BufferedReader(new FileReader("files/main.txt"));
+            br = new BufferedReader(new FileReader("testfiles/words_data/main.txt"));
             
             this.word = br.readLine();
             this.beg = br.readLine();
@@ -55,7 +55,7 @@ public class ChartTest {
     }
     
     public void writeFile(String word, String beg, String end) throws IOException{
-        FileWriter write = new FileWriter("files/main.txt");
+        FileWriter write = new FileWriter("testfiles/words_data/main.txt");
         write.append(word + "\n");
         write.append(beg + "\n");
         write.append(end + "\n");
@@ -66,10 +66,10 @@ public class ChartTest {
      * Test of getWord method, of class Chart.
      */
     @Test
-    public void testGetWord() throws IOException {
+    public void getWord() throws IOException {
         FileReader main = null;
         try {
-            main = new FileReader("testfiles/main.txt");
+            main = new FileReader("testfiles/words_data/main.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChartTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,10 +82,10 @@ public class ChartTest {
      * Test of getBeg method, of class Chart.
      */
     @Test
-    public void testGetBeg() {
+    public void getBeg() {
         FileReader main = null;
         try {
-            main = new FileReader("testfiles/main.txt");
+            main = new FileReader("testfiles/words_data/main.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChartTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,10 +98,10 @@ public class ChartTest {
      * Test of getEnd method, of class Chart.
      */
     @Test
-    public void testGetEnd() {
+    public void getEnd() {
         FileReader main = null;
         try {
-            main = new FileReader("testfiles/main.txt");
+            main = new FileReader("testfiles/words_data/main.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChartTest.class.getName()).log(Level.SEVERE, null, ex);
         }

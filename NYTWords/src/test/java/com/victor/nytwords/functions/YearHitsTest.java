@@ -54,7 +54,7 @@ public class YearHitsTest {
     }
     
     @Test
-    public void testHasAllPublicMethods() {
+    public void hasAllPublicMethods() {
         ArrayList<String> allMeth = getPublicMethods();
         ArrayList<String> result = new ArrayList();
         

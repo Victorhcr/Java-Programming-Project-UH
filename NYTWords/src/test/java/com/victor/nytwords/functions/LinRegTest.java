@@ -6,7 +6,6 @@
 
 package com.victor.nytwords.functions;
 
-import java.util.Collection;
 import java.util.HashMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class LinRegTest {
      * Test of averageNormal method, of class LinReg.
      */
     @Test
-    public void testAverageNormal() {
+    public void averageNormal() {
         double expResult = 2.0;
         double result = this.lr.averageNormal(this.hits.values());
         assertEquals(expResult, result, 0.0);
@@ -42,7 +41,7 @@ public class LinRegTest {
      * Test of averageSquare method, of class LinReg.
      */
     @Test
-    public void testaverageSquare() {
+    public void averageSquare() {
         double expResult = 4.66;
         double result = this.lr.averageSquare(this.hits.values());
         assertEquals(expResult, result, 0.01);
@@ -52,7 +51,7 @@ public class LinRegTest {
      * Test of averageMult method, of class LinReg.
      */
     @Test
-    public void testaverageMult() {
+    public void averageMult() {
         double expResult = 4004.66;
         double result = this.lr.averageMult();
         assertEquals(expResult, result, 0.01);
@@ -72,7 +71,7 @@ public class LinRegTest {
      * Test of angCoef method, of class LinReg.
      */
     @Test
-    public void testangCoef() {
+    public void angCoef() {
         double expResult = 1.0000000002326033;
         double result = this.lr.angCoef();
         assertEquals(expResult, result, 0.00);

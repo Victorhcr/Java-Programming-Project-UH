@@ -2,9 +2,12 @@ package com.victor.nytwords.gui;
 
 //Imports are listed in full to show what's being used
 //could just import javax.swing.* and java.awt.* etc..
+import com.victor.nytwords.filehandler.WordsFile;
 import com.victor.nytwords.listener.CreateChartActionListener;
 import com.victor.nytwords.listener.YearsActionListener;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,19 +26,28 @@ public class View {
 
     JTextField input;
     JFrame guiFrame;
+    JPanel panelTop;
+    JPanel panelBottom;
+    JFrame guiBottomFrame;
     private final JComboBox firstYears;
     private final JComboBox lastYears = new JComboBox();
+    JLabel word1 = new JLabel("1. Search for something!");
+    JLabel word2 = new JLabel("2. Search for something!");
+    JLabel word3 = new JLabel("3. Search for something!");
 
     /**
      * Set the GUI configurations
      */
     public View() {
         guiFrame = new JFrame();
+        guiBottomFrame = new JFrame();
+        panelTop = new JPanel();
+        panelBottom = new JPanel(new GridLayout(1,0));
 
         //make sure the program exits when the frame closes
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         guiFrame.setTitle("New York Times Articles");
-        guiFrame.setSize(350, 150);
+        guiFrame.setSize(800, 100);
 
         //This will center the JFrame in the middle of the screen
         guiFrame.setLocationRelativeTo(null);
@@ -76,18 +88,52 @@ public class View {
 
         JButton createChart = new JButton("Create Chart!");
 
-        ActionListener listenerButton = new CreateChartActionListener(input, guiFrame, firstYears, lastYears);
-        createChart.addActionListener(listenerButton);
+        final ActionListener listenerButton = new CreateChartActionListener(input, guiFrame, firstYears, lastYears);
+
+        createChart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                listenerButton.actionPerformed(e);
+                update();
+            }
+        });
+        
+        update();
 
         //The JFrame uses the BorderLayout layout manager.
         //Put the two JPanels and JButton in different areas.
-        guiFrame.add(textPanel, BorderLayout.NORTH);
-        guiFrame.add(comboPanel, BorderLayout.CENTER);
-        guiFrame.add(combo2Panel, BorderLayout.SOUTH);
-        guiFrame.add(createChart, BorderLayout.SOUTH);
+        panelTop.add(textPanel, BorderLayout.NORTH);
+        panelTop.add(comboPanel, BorderLayout.CENTER);
+        panelTop.add(combo2Panel, BorderLayout.SOUTH);
+        panelTop.add(createChart, BorderLayout.SOUTH);
+        
+        final JPanel words = new JPanel();
+        JLabel textWords = new JLabel("Most Searched Words:");
+        words.add(textWords);
+        words.add(this.word1);
+        words.add(this.word2);
+        words.add(this.word3);
+        
+        panelBottom.add(words, BorderLayout.CENTER);
 
+        guiFrame.add(panelTop, BorderLayout.NORTH);
+        guiFrame.add(panelBottom, BorderLayout.SOUTH);
         //make sure the JFrame is visible
         guiFrame.setVisible(true);
+    }
+
+    public void update() {
+        WordsFile wf = new WordsFile();
+        if(wf.getIndexOrdered(1) != null){
+            this.word1.setText("1. " + wf.getIndexOrdered(1));
+        }
+        
+        if(wf.getIndexOrdered(2) != null){
+            this.word2.setText("2. " + wf.getIndexOrdered(2));
+        }
+        
+        if(wf.getIndexOrdered(3) != null){
+            this.word3.setText("3. " + wf.getIndexOrdered(3));
+        }
     }
 
 }

@@ -25,11 +25,11 @@ public class Chart {
     private FileReader filePred;
 
     public Chart() throws FileNotFoundException {
-        FileReader main = new FileReader("files/main.txt");
+        FileReader main = new FileReader("files/words_data/main.txt");
         getData(main);
 
-        this.fileNorm = new FileReader("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
-        this.filePred = new FileReader("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
+        this.fileNorm = new FileReader("files/words_data/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
+        this.filePred = new FileReader("files/words_data/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
 
         try {
 

@@ -36,7 +36,7 @@ public class FileHandle {
      * @throws IOException 
      */
     public void writeFilePred() throws IOException{
-        FileWriter file = new FileWriter("files/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
+        FileWriter file = new FileWriter("files/words_data/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
         LinReg lr = new LinReg(this.yearHits);
         file.append(String.format( "%.0f", lr.max()) + ": " + String.format( "%.2f", this.yearHits.get(lr.max())) + "\n");
         file.append(String.format( "%.0f", lr.max()+1) + ": " + String.format( "%.2f", lr.predict()) + "\n");
@@ -49,7 +49,7 @@ public class FileHandle {
      * @throws IOException 
      */
     public void writeFile() throws IOException{
-        FileWriter file = new FileWriter("files/" + this.word + "-" + this.beg + "-" + this.end + ".txt"); 
+        FileWriter file = new FileWriter("files/words_data/" + this.word + "-" + this.beg + "-" + this.end + ".txt"); 
         List sortedKeys = new ArrayList(this.yearHits.keySet());
         Collections.sort(sortedKeys);
         for(Object year : sortedKeys){
@@ -64,7 +64,7 @@ public class FileHandle {
      * @throws IOException 
      */
     public void writeFileMain() throws IOException{
-        FileWriter main = new FileWriter("files/main.txt");
+        FileWriter main = new FileWriter("files/words_data/main.txt");
         main.append(word + "\n");
         main.append(beg + "\n");
         main.append(end + "\n");

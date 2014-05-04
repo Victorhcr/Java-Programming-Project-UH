@@ -1,7 +1,6 @@
 package com.victor.nytwords;
 
 import com.victor.nytwords.gui.View;
-import com.victor.nytwords.gui.Chart;
 import java.io.IOException;
 
 public class App {
