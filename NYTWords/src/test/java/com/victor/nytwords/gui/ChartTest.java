@@ -26,7 +26,7 @@ public class ChartTest {
     private String beg;
     private String end;
 
-    public ChartTest() throws FileNotFoundException{
+    public ChartTest() throws FileNotFoundException, IOException{
         this.c = new Chart();
         getFile();
     }

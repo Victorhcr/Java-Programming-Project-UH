@@ -31,9 +31,9 @@ public class View {
     JFrame guiBottomFrame;
     private final JComboBox firstYears;
     private final JComboBox lastYears = new JComboBox();
-    JLabel word1 = new JLabel("1. Search for something!");
-    JLabel word2 = new JLabel("2. Search for something!");
-    JLabel word3 = new JLabel("3. Search for something!");
+    JLabel word1 = new JLabel("Search for something!");
+    JLabel word2 = new JLabel("");
+    JLabel word3 = new JLabel("");
 
     /**
      * Set the GUI configurations
