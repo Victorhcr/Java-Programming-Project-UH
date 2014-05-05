@@ -2,13 +2,17 @@ package com.victor.nytwords.gui;
 
 //Imports are listed in full to show what's being used
 //could just import javax.swing.* and java.awt.* etc..
-import com.victor.nytwords.filehandler.WordsFile;
+import com.victor.nytwords.filehandler.AllWordsFile;
+import com.victor.nytwords.filehandler.MainLogWordsFile;
 import com.victor.nytwords.listener.CreateChartActionListener;
 import com.victor.nytwords.listener.YearsActionListener;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -34,11 +38,14 @@ public class View {
     JLabel word1 = new JLabel("Search for something!");
     JLabel word2 = new JLabel("");
     JLabel word3 = new JLabel("");
+    private final MainLogWordsFile mlw = new MainLogWordsFile();
+    private final int logTime;
 
     /**
      * Set the GUI configurations
      */
     public View() {
+        this.logTime = getLogTime();
         guiFrame = new JFrame();
         guiBottomFrame = new JFrame();
         panelTop = new JPanel();
@@ -88,7 +95,8 @@ public class View {
 
         JButton createChart = new JButton("Create Chart!");
 
-        final ActionListener listenerButton = new CreateChartActionListener(input, guiFrame, firstYears, lastYears);
+        final ActionListener listenerButton = new CreateChartActionListener(input,
+                guiFrame, firstYears, lastYears, logTime);
 
         createChart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -120,9 +128,18 @@ public class View {
         //make sure the JFrame is visible
         guiFrame.setVisible(true);
     }
+    
+    public int getLogTime(){
+        try {
+            mlw.start();
+        } catch (IOException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mlw.getLog();
+    }
 
     public void update() {
-        WordsFile wf = new WordsFile();
+        AllWordsFile wf = new AllWordsFile();
         if(wf.getIndexOrdered(1) != null){
             this.word1.setText("1. " + wf.getIndexOrdered(1));
         }

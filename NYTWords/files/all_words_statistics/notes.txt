@@ -1,9 +1,9 @@
-war: 22
-love: 2
-test: 30
+war: 24
+love: 3
+test: 31
 World War 2: 1
 Rio de Janeiro: 3
-Brazil: 15
+Brazil: 18
 flewbkf: 1
 fwlhfuf: 1
 São Paulo: 1
@@ -16,3 +16,4 @@ b: 1
 345: 1
 fhp34ir839rr34r34: 1
 deowhf uhewuh ri   r3484KMJNBVEF: 1
+brazil: 1

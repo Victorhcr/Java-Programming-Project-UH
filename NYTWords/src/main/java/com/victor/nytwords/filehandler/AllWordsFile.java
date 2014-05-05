@@ -23,11 +23,11 @@ import java.util.List;
  *
  * @author Victorhcr
  */
-public class WordsFile {
+public class AllWordsFile {
 
     private HashMap list;
 
-    public WordsFile() {
+    public AllWordsFile() {
         this.list = new HashMap<String, Integer>();
         getData();
         this.list = sortHashMapByValues(this.list);
