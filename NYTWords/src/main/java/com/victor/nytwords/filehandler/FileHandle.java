@@ -6,13 +6,14 @@
 
 package com.victor.nytwords.filehandler;
 
-import com.victor.nytwords.functions.LinReg;
+import com.victor.nytwords.functions.Predictor;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -37,9 +38,9 @@ public class FileHandle {
      */
     public void writeFilePred() throws IOException{
         FileWriter file = new FileWriter("files/words_data/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
-        LinReg lr = new LinReg(this.yearHits);
-        file.append(String.format( "%.0f", lr.max()) + ": " + String.format( "%.2f", this.yearHits.get(lr.max())) + "\n");
-        file.append(String.format( "%.0f", lr.max()+1) + ": " + String.format( "%.2f", lr.predict()) + "\n");
+        Predictor lr = new Predictor(this.yearHits);
+        file.append(String.format(Locale.US, "%.0f", lr.max()) + ": " + String.format(Locale.US, "%.2f", this.yearHits.get(lr.max())) + "\n");
+        file.append(String.format(Locale.US, "%.0f", lr.max()+1) + ": " + String.format(Locale.US, "%.2f", lr.predict()) + "\n");
         file.append("-");
         file.close();
     }
@@ -53,7 +54,7 @@ public class FileHandle {
         List sortedKeys = new ArrayList(this.yearHits.keySet());
         Collections.sort(sortedKeys);
         for(Object year : sortedKeys){
-            file.append(String.format( "%.0f", year) + ": " + String.format( "%.2f", this.yearHits.get(year)) + "\n");
+            file.append(String.format(Locale.US, "%.0f", year) + ": " + String.format(Locale.US, "%.2f", this.yearHits.get(year)) + "\n");
         }
         file.append("-"); 
         file.close();

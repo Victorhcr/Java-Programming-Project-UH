@@ -13,10 +13,10 @@ import java.util.HashMap;
  * Predict the next point in a data set
  * @author Victor Rodrigues
  */
-public class LinReg {
+public class Predictor {
     private HashMap<Double,Double> points;
     
-    public LinReg(HashMap hm){
+    public Predictor(HashMap hm){
         this.points = hm;
     }
     

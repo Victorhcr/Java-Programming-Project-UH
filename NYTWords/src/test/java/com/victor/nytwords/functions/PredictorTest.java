@@ -14,17 +14,17 @@ import org.junit.Test;
  *
  * @author Victorhcr
  */
-public class LinRegTest {
+public class PredictorTest {
     private HashMap hits;
-    private LinReg lr;
+    private Predictor lr;
     
-    public LinRegTest(){
+    public PredictorTest(){
         this.hits = new HashMap<Double,Double>();
         hits.put(2001.0, 1.0);
         hits.put(2002.0, 2.0);
         hits.put(2003.0, 3.0);
         
-        this.lr = new LinReg(this.hits);
+        this.lr = new Predictor(this.hits);
     }
     
     /**
