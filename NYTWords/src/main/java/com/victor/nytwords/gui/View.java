@@ -29,28 +29,22 @@ import javax.swing.JTextField;
 public class View {
 
     JTextField input;
-    JFrame guiFrame;
-    JPanel panelTop;
-    JPanel panelBottom;
-    JFrame guiBottomFrame;
+    JFrame guiFrame = new JFrame();
+    JPanel panelTop = new JPanel();
+    JPanel panelBottom = new JPanel(new GridLayout(1,0));
+    JFrame guiBottomFrame = new JFrame();
     private final JComboBox firstYears;
     private final JComboBox lastYears = new JComboBox();
     JLabel word1 = new JLabel("Search for something!");
     JLabel word2 = new JLabel("");
     JLabel word3 = new JLabel("");
     private final MainLogWordsFile mlw = new MainLogWordsFile();
-    private final int logTime;
+    private final int logTime = getLogTime();
 
     /**
      * Set the GUI configurations
      */
     public View() {
-        this.logTime = getLogTime();
-        guiFrame = new JFrame();
-        guiBottomFrame = new JFrame();
-        panelTop = new JPanel();
-        panelBottom = new JPanel(new GridLayout(1,0));
-
         //make sure the program exits when the frame closes
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         guiFrame.setTitle("New York Times Articles");
@@ -128,6 +122,9 @@ public class View {
         //make sure the JFrame is visible
         guiFrame.setVisible(true);
     }
+    
+    
+    
     
     public int getLogTime(){
         try {

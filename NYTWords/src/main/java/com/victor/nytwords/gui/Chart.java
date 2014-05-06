@@ -1,5 +1,6 @@
 package com.victor.nytwords.gui;
 
+import com.victor.nytwords.filehandler.RelatedWords;
 import com.victor.nytwords.functions.Articles;
 import com.victor.nytwords.listener.OpenUrlActionListener;
 import java.awt.BorderLayout;
@@ -9,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
@@ -38,7 +40,7 @@ public class Chart extends JFrame {
 
     public Chart() throws FileNotFoundException, IOException {
         super("New York Times Articles");
-        
+
         FileReader main = new FileReader("files/words_data/main.txt");
         getData(main);
         hl = new Articles(this.word, this.beg, this.end);
@@ -69,41 +71,85 @@ public class Chart extends JFrame {
             renderer.setBaseShapesVisible(true);
             renderer.setBaseShapesFilled(true);
 
-            addArticles();
+            addArticle();
+            addRelatedWords();
 
             ChartPanel chartPanel = new ChartPanel(chart);
             chartPanel.setPreferredSize(new Dimension(900, 600));
 
             this.setLayout(new BorderLayout());
             this.add(chartPanel, BorderLayout.CENTER);
-            if(hl.getData()[2] != null){
-                OpenUrlActionListener buttonListener = new OpenUrlActionListener(hl.getData()[2]); 
+            if (hl.getData()[2] != null) {
+                OpenUrlActionListener buttonListener = new OpenUrlActionListener(hl.getData()[2]);
                 readMore.addActionListener(buttonListener);
                 this.add(readMore, BorderLayout.SOUTH);
             }
             this.pack();
-            
+
             this.setVisible(true);
         } catch (Exception i) {
             System.out.println(i);
         }
     }
 
-    public void addArticles() {
+    public void addRelatedWords() throws FileNotFoundException {
+        RelatedWords rl = new RelatedWords(this.word);
+        int counter = 1;
+        int max = 3;
+        Set rlKeySet = rl.getRelatedWords().keySet();
+        if (!rlKeySet.isEmpty()) {
+            TextTitle textRelatedWordIntro = new TextTitle("    Related words:");
+            //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
+            textRelatedWordIntro.setPosition(RectangleEdge.BOTTOM);
+            textRelatedWordIntro.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            chart.addSubtitle(0, textRelatedWordIntro);
+            for (Object word : rlKeySet) {
+                TextTitle textRelatedWord = new TextTitle("      " + word);
+                //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
+                textRelatedWord.setPosition(RectangleEdge.BOTTOM);
+                textRelatedWord.setHorizontalAlignment(HorizontalAlignment.LEFT);
+                chart.addSubtitle(0, textRelatedWord);
+
+                counter++;
+                if (counter > max) {
+                    break;
+                }
+            }
+        } else {
+            TextTitle textNoWords = new TextTitle("\n    No related words available.");
+            //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
+            textNoWords.setPosition(RectangleEdge.BOTTOM);
+            textNoWords.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            chart.addSubtitle(0, textNoWords);
+        }
+
+        TextTitle textEmpty = new TextTitle("\n");
+        //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        textEmpty.setPosition(RectangleEdge.BOTTOM);
+        textEmpty.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        chart.addSubtitle(0, textEmpty);
+    }
+
+    public void addArticle() {
         if (hl.getData()[0] != null) {
-            TextTitle textHeadline = new TextTitle("\n   Headline: " + hl.getData()[0]);
+            TextTitle textHeadline = new TextTitle("\n    Headline: " + hl.getData()[0]);
             //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
             textHeadline.setPosition(RectangleEdge.BOTTOM);
             textHeadline.setHorizontalAlignment(HorizontalAlignment.LEFT);
             chart.addSubtitle(0, textHeadline);
 
-            TextTitle textSummary = new TextTitle("\n   Summary: " + hl.getData()[1]);
+            TextTitle textSummary;
+            if (!hl.getData()[1].equals("null")) {
+                textSummary = new TextTitle("\n    Summary: " + hl.getData()[1]);
+            } else {
+                textSummary = new TextTitle("\n    No summary available.");
+            }
             //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
             textSummary.setPosition(RectangleEdge.BOTTOM);
             textSummary.setHorizontalAlignment(HorizontalAlignment.LEFT);
             chart.addSubtitle(0, textSummary);
         } else {
-            TextTitle textLink = new TextTitle("\n   No articles available.");
+            TextTitle textLink = new TextTitle("\n    No articles available.");
             //textTitle.setFont(new Font("SansSerif", Font.PLAIN, 20));
             textLink.setPosition(RectangleEdge.BOTTOM);
             textLink.setHorizontalAlignment(HorizontalAlignment.LEFT);

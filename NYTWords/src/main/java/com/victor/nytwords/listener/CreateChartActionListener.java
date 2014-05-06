@@ -75,6 +75,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
     public String replace(String word){
         String all = " abcdefghijklmnopqrstuvxwyz1234567890";
         String result = "";
+        word = word.trim();
         char[] wordArray = word.toCharArray();
         for(int i = 0; i < word.length();i++){
             if(all.contains(Character.toString(word.toLowerCase().charAt(i)))){
