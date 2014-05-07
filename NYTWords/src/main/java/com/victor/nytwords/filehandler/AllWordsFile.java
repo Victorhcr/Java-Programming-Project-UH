@@ -26,15 +26,17 @@ import java.util.List;
 public class AllWordsFile {
 
     private HashMap list;
+    private String file;
 
-    public AllWordsFile() {
+    public AllWordsFile(String input) {
+        this.file = input;
         this.list = new HashMap<String, Integer>();
-        getData();
+        this.list = getData();
         this.list = sortHashMapByValues(this.list);
     }
 
     public void updateWordsStatisticsFile(String word) throws IOException {
-        getData();
+        this.list = getData();
         if (!this.list.containsKey(word)) {
             addNewWord(word);
         } else {
@@ -83,7 +85,7 @@ public class AllWordsFile {
     public void replaceSelected(String replaceWith, Integer type) {
         try {
             // input the file content to the String "input"
-            BufferedReader file = new BufferedReader(new FileReader("files/all_words_statistics/notes.txt"));
+            BufferedReader file = new BufferedReader(new FileReader(this.file));
             String line;
             String input = "";
 
@@ -95,7 +97,7 @@ public class AllWordsFile {
             input = input.replace(replaceWith + ": " + type, replaceWith + ": " + (type + 1));
 
             // write the new String with the replaced line OVER the same file
-            FileOutputStream File = new FileOutputStream("files/all_words_statistics/notes.txt");
+            FileOutputStream File = new FileOutputStream(this.file);
             File.write(input.getBytes());
 
         } catch (Exception e) {
@@ -110,17 +112,18 @@ public class AllWordsFile {
      * @param series
      * @param file
      */
-    public void getData() {
+    public HashMap getData() {
         BufferedReader br = null;
+        HashMap words = new HashMap();
         try {
             String sCurrentLine;
             String[] parts;
 
-            br = new BufferedReader(new FileReader("files/all_words_statistics/notes.txt"));
+            br = new BufferedReader(new FileReader(this.file));
 
             while ((sCurrentLine = br.readLine()) != null) {
                 parts = sCurrentLine.split(": ");
-                this.list.put(parts[0], Integer.parseInt(parts[1]));
+                words.put(parts[0], Integer.parseInt(parts[1]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,6 +136,7 @@ public class AllWordsFile {
                 ex.printStackTrace();
             }
         }
+        return words;
     }
 
     public String getIndexOrdered(int i) {

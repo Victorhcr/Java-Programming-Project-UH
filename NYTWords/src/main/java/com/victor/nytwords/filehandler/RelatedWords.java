@@ -37,7 +37,7 @@ public class RelatedWords {
             parsedWords = getData(i);
             if (parsedWords.containsKey(this.word)) {
                 parsedWords.remove(this.word);
-                result = updateRelatedWords(parsedWords,result);
+                result = updateRelatedWords(parsedWords, result);
             }
         }
         result = sortHashMapByValues(result);
@@ -47,10 +47,8 @@ public class RelatedWords {
     public HashMap updateRelatedWords(HashMap<String, Integer> parsedWords,
             HashMap<String, Integer> result) {
         for (Object wordParsed : parsedWords.keySet()) {
-            if (result.containsKey(wordParsed) && parsedWords.get(wordParsed) > result.get(wordParsed)) {
-                if (parsedWords.get(wordParsed) > result.get(wordParsed)) {
-                    result.put((String) wordParsed, parsedWords.get(wordParsed));
-                }
+            if (result.containsKey(wordParsed)) {
+                result.put((String) wordParsed, parsedWords.get(wordParsed) + result.get(wordParsed));
             } else {
                 result.put((String) wordParsed, parsedWords.get(wordParsed));
             }

@@ -1,6 +1,6 @@
 war: 24
 love: 3
-test: 37
+test: 46
 World War 2: 1
 Rio de Janeiro: 4
 Brazil: 20
@@ -30,3 +30,11 @@ haha: 1
 hahaha: 1
 buga: 1
 fwelfhwi: 1
+Gulf: 1
+war: 1
+: 1
+: 1
+war: 1
+war: 1
+: 1
+: 1

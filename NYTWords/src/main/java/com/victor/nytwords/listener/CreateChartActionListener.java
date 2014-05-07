@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -38,7 +39,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         this.guiFrame = guiFrame;
         this.firstYears = firstYears;
         this.lastYears = lastYears;
-        this.logFile = new LogWordsFile(logTime);
+        this.logFile = new LogWordsFile(logTime,"files/history/");
     }
     
     /**
@@ -55,7 +56,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         int end = Integer.parseInt(String.valueOf(lastYears.getSelectedItem()));
         if (word.isEmpty()) return;
         YearHits yh = new YearHits(word, beg, end);
-        AllWordsFile wf = new AllWordsFile();
+        AllWordsFile wf = new AllWordsFile("files/all_words_statistics/notes.txt");
         try {
             this.logFile.updateWordsStatisticsFile(word);
             wf.updateWordsStatisticsFile(word);
