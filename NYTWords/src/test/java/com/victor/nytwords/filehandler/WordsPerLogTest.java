@@ -78,7 +78,7 @@ public class WordsPerLogTest {
         int i = 1;
         History instance = new History("testfiles/all_words_statistics/notes.txt");
         String expResult = "love";
-        String result = instance.getIndexOrdered(1);
+        String result = instance.getWordByIndexOrder(1);
         assertEquals(expResult, result);
     }
     

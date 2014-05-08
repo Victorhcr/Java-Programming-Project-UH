@@ -73,7 +73,7 @@ public class PredictorTest {
     @Test
     public void angCoef() {
         double expResult = 1.0000000002326033;
-        double result = this.lr.angCoef();
+        double result = this.lr.angularCoefficient();
         assertEquals(expResult, result, 0.00);
     }
     

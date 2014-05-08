@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- *
+ * 
  * @author Victorhcr
  */
 public class Data {
@@ -25,6 +25,13 @@ public class Data {
     private int beg;
     private int end;
     
+    /**
+     * 
+     * @param word Word wrote by the user
+     * @param beg First year chosen by the user
+     * @param end Last year chosen by the user
+     * @param years HashMap containing the percentage of articles for each year
+     */
     public Data(String word, int beg, int end, HashMap years){
         this.yearHits = years;
         this.beg = beg;

@@ -5,6 +5,7 @@
  */
 package com.victor.nytwords.filehandler;
 
+import com.victor.nytwords.interfaces.WordStatistics;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -23,11 +24,15 @@ import java.util.List;
  *
  * @author Victorhcr
  */
-public class History {
+public class History implements WordStatistics {
 
     private HashMap list;
     private String file;
 
+    /**
+     * Constructor of History Class
+     * @param input Path in the computer to the history file
+     */
     public History(String input) {
         this.file = input;
         this.list = new HashMap<String, Integer>();
@@ -35,16 +40,28 @@ public class History {
         this.list = sortHashMapByValues(this.list);
     }
 
+    /**
+     * Update file of history of words used by users
+     * @param word Word wrote by the user
+     * @throws IOException 
+     */
+    @Override
     public void updateWordsStatisticsFile(String word) throws IOException {
         this.list = getData();
         if (!this.list.containsKey(word)) {
             addNewWord(word);
         } else {
-            replaceSelected(word, (Integer) this.list.get(word));
+            replaceSelectedWordLine(word, (Integer) this.list.get(word));
         }
         this.list = sortHashMapByValues(this.list);
     }
 
+    /**
+     * Sort the HashMap of passedMap according to the value
+     * @param passedMap HashMap of words and times they were requested by users
+     * @return Sorted HashMap by the value
+     */
+    @Override
     public LinkedHashMap sortHashMapByValues(HashMap passedMap) {
         List mapKeys = new ArrayList(passedMap.keySet());
         List mapValues = new ArrayList(passedMap.values());
@@ -75,6 +92,12 @@ public class History {
         return sortedMap;
     }
 
+    /**
+     * Add word not used before to the history file
+     * @param word Word wrote by the user
+     * @throws IOException 
+     */
+    @Override
     public void addNewWord(String word) throws IOException {
         Writer output;
         output = new BufferedWriter(new FileWriter("files/all_words_statistics/notes.txt", true));
@@ -82,7 +105,14 @@ public class History {
         output.close();
     }
 
-    public void replaceSelected(String replaceWith, Integer type) {
+    /**
+     * Update the number of times the word input by the user was written in the
+     * program in the history file
+     * @param word Word wrote by the user
+     * @param times Times the word was written in the program
+     */
+    @Override
+    public void replaceSelectedWordLine(String word, Integer times) {
         try {
             // input the file content to the String "input"
             BufferedReader file = new BufferedReader(new FileReader(this.file));
@@ -94,7 +124,7 @@ public class History {
             }
 
             // this if structure determines whether or not to replace
-            input = input.replace(replaceWith + ": " + type, replaceWith + ": " + (type + 1));
+            input = input.replace(word + ": " + times, word + ": " + (times + 1));
 
             // write the new String with the replaced line OVER the same file
             FileOutputStream File = new FileOutputStream(this.file);
@@ -106,11 +136,9 @@ public class History {
     }
 
     /**
-     * This method adds the data parsed from chosen file in getData method and
-     * adds to the chart
-     *
-     * @param series
-     * @param file
+     * Parse the history file
+     * @return HashMap with word as key and number of times they
+     * were written in the program as value
      */
     public HashMap getData() {
         BufferedReader br = null;
@@ -139,7 +167,13 @@ public class History {
         return words;
     }
 
-    public String getIndexOrdered(int i) {
+    /**
+     * Gets the the i-th most written word in the program
+     * @param i Position of word in the sorted by value HashMap
+     * @return Word ranked in the i position
+     */
+    @Override
+    public String getWordByIndexOrder(int i) {
         List keys = new ArrayList(this.list.keySet()); 
         String result = null;  
         int count = 1;

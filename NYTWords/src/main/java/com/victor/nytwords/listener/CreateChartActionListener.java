@@ -32,6 +32,14 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
     private final int logTime;
     private final WordsPerLog logFile;
 
+    /**
+     * Constructor for CreateChartActionListener class
+     * @param input Field of word chosen by user
+     * @param guiFrame Frame of view class
+     * @param firstYears Option chosen for first year
+     * @param lastYears Option chosen for last year
+     * @param logTime Number of times the program was initialized
+     */
     public CreateChartActionListener(JTextField input, JFrame guiFrame,
             JComboBox firstYears, JComboBox lastYears, int logTime) {
         this.logTime = logTime;
@@ -44,7 +52,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
     
     /**
      * Create the chart based on the user's inputs
-     * @param e 
+     * @param e Action done in the View class
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -70,8 +78,8 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
     
     /**
      * Avoid errors in the program by replacing characters in the user's input
-     * @param word
-     * @return 
+     * @param word Word parsed
+     * @return Word according to the program's requirement
      */
     public String replace(String word){
         String all = " abcdefghijklmnopqrstuvxwyz1234567890";

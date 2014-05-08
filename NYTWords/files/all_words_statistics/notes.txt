@@ -39,3 +39,5 @@ war: 1
 : 1
 : 1
 Sao Paulo: 1
+Hi: 3
+Nokia: 1

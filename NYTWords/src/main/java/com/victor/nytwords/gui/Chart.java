@@ -38,6 +38,11 @@ public class Chart extends JFrame {
     private FileReader filePred;
     private JFreeChart chart;
 
+    /**
+     * Plot data from API
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public Chart() throws FileNotFoundException, IOException {
         super("New York Times Articles");
 
@@ -92,6 +97,10 @@ public class Chart extends JFrame {
         }
     }
 
+    /**
+     * Add related words to the plot frame
+     * @throws FileNotFoundException 
+     */
     public void addRelatedWords() throws FileNotFoundException {
         RelatedWords rl = new RelatedWords(this.word,"files/history/main.txt");
         int counter = 1;
@@ -130,6 +139,9 @@ public class Chart extends JFrame {
         chart.addSubtitle(0, textEmpty);
     }
 
+    /**
+     * Add an Article Headline, Snippet and Link to the plot frame
+     */
     public void addArticle() {
         if (hl.getData()[0] != null) {
             TextTitle textHeadline = new TextTitle("\n    Headline: " + hl.getData()[0]);
@@ -164,8 +176,7 @@ public class Chart extends JFrame {
 
     /**
      * This method sets the plot characteristics
-     *
-     * @param plot
+     * @param plot Plot in construction
      */
     public void setPlot(XYPlot plot) {
         plot.setBackgroundPaint(Color.white);
@@ -179,8 +190,8 @@ public class Chart extends JFrame {
     /**
      * This method gets data from file in user computer and check which file to
      * parse
-     *
-     * @param main
+     * @param main File that has information about the word, first year and
+     * last year of this parsing
      */
     public void getData(FileReader main) {
         BufferedReader br = null;
@@ -209,8 +220,8 @@ public class Chart extends JFrame {
      * This method adds the data parsed from chosen file in getData method and
      * adds to the chart
      *
-     * @param series
-     * @param file
+     * @param series Points in the plot
+     * @param file File that has the data from API
      */
     public void addData(XYSeries series, FileReader file) {
         BufferedReader br = null;
@@ -240,7 +251,7 @@ public class Chart extends JFrame {
     /**
      * Returns word to be plotted
      *
-     * @return
+     * @return Word parsed
      */
     public String getWord() {
         return this.word;
@@ -249,7 +260,7 @@ public class Chart extends JFrame {
     /**
      * Returns first year of the parsing
      *
-     * @return
+     * @return First year
      */
     public int getBeg() {
         return this.beg;
@@ -258,7 +269,7 @@ public class Chart extends JFrame {
     /**
      * Returns last year of the parsing
      *
-     * @return
+     * @return Last year
      */
     public int getEnd() {
         return this.end;

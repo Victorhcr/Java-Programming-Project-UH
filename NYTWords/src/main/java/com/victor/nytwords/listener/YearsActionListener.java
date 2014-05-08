@@ -19,6 +19,11 @@ public class YearsActionListener implements java.awt.event.ActionListener{
     private JComboBox firstYears;
     private JComboBox lastYears;
     
+    /**
+     * Constructor of YearsActionListener class
+     * @param firstYears Options for first year plot
+     * @param lastYears Options for last year plot
+     */
     public YearsActionListener(JComboBox firstYears, JComboBox lastYears) {
         this.firstYears = firstYears;
         this.lastYears = lastYears;
@@ -27,7 +32,7 @@ public class YearsActionListener implements java.awt.event.ActionListener{
     /**
      * Updates the range of last year to be chosen 
      * when the first year is chosen
-     * @param e 
+     * @param e Action from View Class
      */
     @Override
     public void actionPerformed(ActionEvent e) {

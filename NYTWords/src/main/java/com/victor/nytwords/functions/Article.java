@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Gets Data from New York Times API and saves in the computer
@@ -22,18 +21,27 @@ import org.apache.commons.lang.StringEscapeUtils;
  */
 public class Article {
 
-    private String[] headline;
+    private String[] article;
     private String word;
     private int beg = -1;
     private int end;
     private Data handle;
 
+    /**
+     * 
+     */
     public Article() {
-        this.headline = new String[3];
+        this.article = new String[3];
     }
 
+    /**
+     * Constructor of Article class
+     * @param word Word written by user
+     * @param beg First year parsed
+     * @param end Last year parsed
+     */
     public Article(String word, int beg, int end) {
-        this.headline = new String[3];
+        this.article = new String[3];
         this.word = word;
         this.beg = beg;
         this.end = end;
@@ -46,7 +54,7 @@ public class Article {
      */
     public void start() throws IOException {
         try {
-            this.headline = addHits(this.word, this.beg, this.end);
+            this.article = addHits(this.word, this.beg, this.end);
         } catch (Exception e) {
             System.out.println("Problem in getting word data (headline,url,snippet). More: \n" + e);
         }
@@ -119,8 +127,9 @@ public class Article {
     /**
      * Parse page received and get number of articles with that word
      *
-     * @param jsonLine
-     * @return
+     * @param jsonLine String from web site
+     * @return Headline, Snippet and a Link of most recent Article
+     * in the parsing
      */
     private String[] parse(String jsonLine) {
         String[] result = new String[3];
@@ -144,7 +153,7 @@ public class Article {
     /**
      * Return word parsed
      *
-     * @return
+     * @return Word parsed
      */
     public String getWord() {
         return this.word;
@@ -153,7 +162,7 @@ public class Article {
     /**
      * Return first year parsed
      *
-     * @return
+     * @return First year
      */
     public int getBeg() {
         return this.beg;
@@ -162,7 +171,7 @@ public class Article {
     /**
      * Return last year parsed
      *
-     * @return
+     * @return Last Year
      */
     public int getEnd() {
         return this.end;
@@ -171,9 +180,10 @@ public class Article {
     /**
      * Return HashMap
      *
-     * @return
+     * @return Headline, Snippet and a Link of most recent Article
+     * in the parsing
      */
     public String[] getData() {
-        return this.headline;
+        return this.article;
     }
 }

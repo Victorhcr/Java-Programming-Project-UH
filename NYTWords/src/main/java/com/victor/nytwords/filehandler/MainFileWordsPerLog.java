@@ -20,20 +20,28 @@ public class MainFileWordsPerLog {
     private int logTime;
     private String file;
     
+    /**
+     * Constructor of MainFileWordsPerLog class
+     * @param input File path to the main file
+     */
     public MainFileWordsPerLog(String input){
         this.file = input;
     }
     
+    /**
+     * Starts to parse the file
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void start() throws FileNotFoundException, IOException{
         this.logTime = getData(new FileReader(this.file));
         writeFileMain();
     }
     
     /**
-     * This method gets data from file in user computer and check which file to
-     * parse
-     *
-     * @param main
+     * This method gets data from file in user computer and gets the number of
+     * times the program was used
+     * @param main FileReader parameter to read file
      */
     public int getData(FileReader main) {
         BufferedReader br = null;
@@ -68,6 +76,10 @@ public class MainFileWordsPerLog {
         main.close();
     }
     
+    /**
+     * Gets the number of times the program was used
+     * @return Return the number of times the program was used
+     */
     public int getLog(){
         return this.logTime;
     }

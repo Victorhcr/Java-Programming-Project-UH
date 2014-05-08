@@ -43,6 +43,7 @@ public class View {
 
     /**
      * Set the GUI configurations
+     * @param file File with number of times the program was initialized
      */
     public View(String file) {      
         this.mlw = new MainFileWordsPerLog(file);
@@ -92,6 +93,14 @@ public class View {
         this.guiFrame = setGuiFrame(panelTop, panelBottom);
     }
     
+    /**
+     * Adds the fields where user can write the word, choose the range of
+     * years and click to create chart
+     * @param textPanel Field to write the chosen word
+     * @param comboPanel Field to choose the range of years
+     * @param createChart Field to click button to create chart
+     * @return All this fields together as one Panel
+     */
     public JPanel addToPanelTop(JPanel textPanel, JPanel comboPanel, 
             JButton createChart){
         JPanel panelTop = new JPanel();
@@ -103,6 +112,13 @@ public class View {
         return panelTop;
     }
 
+    /**
+     * Field where user can see words most searched in the program
+     * @param word1 Word most searched
+     * @param word2 Second word most searched
+     * @param word3 Third word most searched
+     * @return Those words as one Panel
+     */
     public JPanel addMostSearchedWords(JLabel word1, JLabel word2, JLabel word3) {
         JPanel words = new JPanel();
         JLabel textWords = new JLabel("Most Searched Words:");
@@ -114,6 +130,12 @@ public class View {
     }
 
 
+    /**
+     * Unite the top panel with the bottom panel
+     * @param panelTop Field the user can interact with
+     * @param panelBottom Field the user can just read
+     * @return Frame uniting top panel with bottom panel
+     */
     public JFrame setGuiFrame(JPanel panelTop, JPanel panelBottom) {
         JFrame guiFrame = new JFrame();
         
@@ -133,6 +155,10 @@ public class View {
         return guiFrame;
     }
 
+    /**
+     * Gets number of times the program was initialized
+     * @return Number of times the program was initialized
+     */
     public int getLogTime() {
         try {
             mlw.start();
@@ -142,18 +168,22 @@ public class View {
         return mlw.getLog();
     }
 
+    /**
+     * Update fields showing the words most searched
+     * @param file Path to notes file in Word Statistics Folder
+     */
     public void updateMostSearchedWords(String file) {
         History wf = new History(file);
-        if (wf.getIndexOrdered(1) != null) {
-            this.word1.setText("1. " + wf.getIndexOrdered(1));
+        if (wf.getWordByIndexOrder(1) != null) {
+            this.word1.setText("1. " + wf.getWordByIndexOrder(1));
         }
 
-        if (wf.getIndexOrdered(2) != null) {
-            this.word2.setText("2. " + wf.getIndexOrdered(2));
+        if (wf.getWordByIndexOrder(2) != null) {
+            this.word2.setText("2. " + wf.getWordByIndexOrder(2));
         }
 
-        if (wf.getIndexOrdered(3) != null) {
-            this.word3.setText("3. " + wf.getIndexOrdered(3));
+        if (wf.getWordByIndexOrder(3) != null) {
+            this.word3.setText("3. " + wf.getWordByIndexOrder(3));
         }
     }
 

@@ -22,8 +22,8 @@ public class Predictor {
     
     /**
      * Calculate the average of numbers
-     * @param set
-     * @return 
+     * @param set Numbers considered
+     * @return Average of numbers in the set
      */
     public double averageNormal(Collection<Double> set){
         double total = 0;
@@ -37,8 +37,8 @@ public class Predictor {
     
     /**
      * Calculate the average of squared numbers
-     * @param set
-     * @return 
+     * @param set Set of numbers considered
+     * @return Returns the average of the square of the numbers in the set
      */
     public double averageSquare(Collection<Double> set){
         double total = 0;
@@ -53,7 +53,7 @@ public class Predictor {
     /**
      * Calculate the average of multiplication of
      * x coordinate times respective y coordinate
-     * @return 
+     * @return Returns the average of multiplication of x cord with y cord
      */
     public double averageMult(){
         double total = 0;
@@ -67,9 +67,9 @@ public class Predictor {
     
     /**
      * Calculate angular coefficient (slope) of prediction line 
-     * @return 
+     * @return Returns angular coefficient of line
      */
-    public double angCoef(){
+    public double angularCoefficient(){
         double avgNX = averageNormal(this.points.keySet());
         double avgNY = averageNormal(this.points.values());
         double avgSX = averageSquare(this.points.keySet());
@@ -84,20 +84,20 @@ public class Predictor {
     /**
      * Calculate linear coefficient (value of y when x = 0) 
      * of prediction line
-     * @return 
+     * @return Returns linear coefficient of line
      */
-    public double linCoef(){
+    public double linearCoefficient(){
         double avgNX = averageNormal(this.points.keySet());
         double avgNY = averageNormal(this.points.values());
         
-        double b = avgNY - angCoef()*avgNX;
+        double b = avgNY - angularCoefficient()*avgNX;
         
         return b;
     }
     
     /**
      * Find the maximum x value of the data
-     * @return 
+     * @return Returns maximum x value of data
      */
     public double max(){
         double max = 0;
@@ -113,9 +113,9 @@ public class Predictor {
     
     /**
      * Predict y value of next year
-     * @return 
+     * @return Next y value
      */
     public double predict(){
-        return (max()+1)*angCoef()+linCoef();
+        return (max()+1)*angularCoefficient()+linearCoefficient();
     }
 }

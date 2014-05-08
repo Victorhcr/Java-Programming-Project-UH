@@ -5,6 +5,7 @@
  */
 package com.victor.nytwords.filehandler;
 
+import com.victor.nytwords.interfaces.WordStatistics;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -25,12 +26,17 @@ import java.util.logging.Logger;
  *
  * @author Victorhcr
  */
-public class WordsPerLog {
+public class WordsPerLog implements WordStatistics{
 
     private HashMap list;
     private final int logTime;
     private final String file;
 
+    /**
+     * Constructor of WordsPerLog class
+     * @param input Word written in the program
+     * @param file File path to the history folder
+     */
     public WordsPerLog(int input, String file) {
         this.file = file;
         this.logTime = input;
@@ -42,16 +48,28 @@ public class WordsPerLog {
         }
     }
 
+    /**
+     * Update file of log of words used by users
+     * @param word Word wrote by the user
+     * @throws IOException 
+     */
+    @Override
     public void updateWordsStatisticsFile(String word) throws IOException {
         this.list = getData(this.logTime);
         if (!this.list.containsKey(word)) {
             addNewWord(word);
         } else {
-            replaceSelected(word, (Integer) this.list.get(word));
+            replaceSelectedWordLine(word, (Integer) this.list.get(word));
         }
         this.list = sortHashMapByValues(this.list);
     }
 
+    /**
+     * Sort the passedMap by value
+     * @param passedMap A HashMap of each history log file
+     * @return Sort HashMap by value
+     */
+    @Override
     public LinkedHashMap sortHashMapByValues(HashMap passedMap) {
         List mapKeys = new ArrayList(passedMap.keySet());
         List mapValues = new ArrayList(passedMap.values());
@@ -82,12 +100,23 @@ public class WordsPerLog {
         return sortedMap;
     }
     
-    public void createDoc(String name) throws IOException{
+    /**
+     * Create log file document 
+     * @param number Number of times the program was initialized
+     * @throws IOException 
+     */
+    public void createDoc(String number) throws IOException{
         Writer output;
-        output = new BufferedWriter(new FileWriter(this.file + "log" + name + ".txt", true));
+        output = new BufferedWriter(new FileWriter(this.file + "log" + number + ".txt", true));
         output.close();
     }
 
+    /**
+     * Add word not used before to the log file
+     * @param word Word wrote by the user
+     * @throws IOException 
+     */
+    @Override
     public void addNewWord(String word) throws IOException {
         Writer output;
         output = new BufferedWriter(new FileWriter(this.file + "log" + this.logTime + ".txt", true));
@@ -95,7 +124,14 @@ public class WordsPerLog {
         output.close();
     }
 
-    public void replaceSelected(String replaceWith, Integer type) {
+    /**
+     * Update the number of times the word input by the user was written in the
+     * program in the history file
+     * @param word Word wrote by the user
+     * @param times Times the word was written in the program
+     */
+    @Override
+    public void replaceSelectedWordLine(String word, Integer times) {
         try {
             // input the file content to the String "input"
             BufferedReader file = new BufferedReader(new FileReader(this.file + "log" + this.logTime + ".txt"));
@@ -107,7 +143,7 @@ public class WordsPerLog {
             }
 
             // this if structure determines whether or not to replace
-            input = input.replace(replaceWith + ": " + type, replaceWith + ": " + (type + 1));
+            input = input.replace(word + ": " + times, word + ": " + (times + 1));
 
             // write the new String with the replaced line OVER the same file
             FileOutputStream File = new FileOutputStream(this.file + "log" + this.logTime + ".txt");
@@ -119,12 +155,10 @@ public class WordsPerLog {
     }
 
     /**
-     * This method adds the data parsed from chosen file in getData method and
-     * adds to the chart
-     *
-     * @param logTime
-     * @param series
-     * @param file
+     * Parse log file in the history folder
+     * @param logTime The time the program was used
+     * @return HashMap with words as key and the number of times
+     * they were input in the program as value 
      */
     public HashMap getData(int logTime) {
         BufferedReader br = null;
@@ -153,7 +187,13 @@ public class WordsPerLog {
         return words;
     }
 
-    public String getIndexOrdered(int i) {
+    /**
+     * Gets the the i-th most written word in the program
+     * @param i Position of word in the sorted by value HashMap
+     * @return Word ranked in the i position
+     */
+    @Override
+    public String getWordByIndexOrder(int i) {
         List keys = new ArrayList(this.list.keySet()); 
         String result = null;  
         int count = 1;

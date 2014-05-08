@@ -25,11 +25,22 @@ public class RelatedWords {
     private int numberDocuments;
     private String word;
 
+    /**
+     * Constructor of RelatedWords class
+     * @param input Word written by the user
+     * @param file Path in the computer to the history folder
+     * @throws FileNotFoundException 
+     */
     public RelatedWords(String input, String file) throws FileNotFoundException {
         this.word = input;
         this.numberDocuments = getNumberDocuments(new FileReader(file));
     }
 
+    /**
+     * Gets all words from file if the word written is in the file
+     * @return HashMap with related words as key and the number of times
+     * they were input in the program as value
+     */
     public HashMap getRelatedWords() {
         HashMap result = new HashMap<String, Integer>();
         HashMap parsedWords = new HashMap<String, Integer>();
@@ -44,6 +55,12 @@ public class RelatedWords {
         return result;
     }
 
+    /**
+     * 
+     * @param parsedWords
+     * @param result
+     * @return 
+     */
     public HashMap updateRelatedWords(HashMap<String, Integer> parsedWords,
             HashMap<String, Integer> result) {
         for (Object wordParsed : parsedWords.keySet()) {
@@ -85,11 +102,10 @@ public class RelatedWords {
     }
 
     /**
-     * This method adds the data parsed from chosen file in getData method and
-     * adds to the chart
-     *
-     * @param series
-     * @param file
+     * Parse log file in the history folder
+     * @param logTime The time the program was used
+     * @return HashMap with words as key and the number of times
+     * they were input in the program as value 
      */
     public HashMap getData(int logTime) {
         HashMap list = new HashMap<String, Integer>();
@@ -118,6 +134,11 @@ public class RelatedWords {
         return list;
     }
 
+    /**
+     * Sort the passedMap by value
+     * @param passedMap A HashMap of each history log file
+     * @return Sort HashMap by value
+     */
     public LinkedHashMap sortHashMapByValues(HashMap passedMap) {
         List mapKeys = new ArrayList(passedMap.keySet());
         List mapValues = new ArrayList(passedMap.values());

@@ -5,13 +5,8 @@
  */
 package com.victor.nytwords.listener;
 
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
-import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  *
@@ -21,20 +16,28 @@ public class OpenUrlActionListener implements java.awt.event.ActionListener {
 
     private String link;
 
+    /**
+     * Constructor of OpenUrlActionListener class
+     * @param input URL String to article site
+     * @throws MalformedURLException 
+     */
     public OpenUrlActionListener(String input) throws MalformedURLException {
         this.link = input;
     }
 
     /**
-     * Create the chart based on the user's inputs
-     *
-     * @param e
+     * Opens web page
+     * @param e Action done in Chart GUI
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         openWebpage(this.link);
     }
 
+    /**
+     * Transforms URL to URI and opens Desktop
+     * @param urlString URL of article page
+     */
     public static void openWebpage(String urlString) {
         try {  
             java.awt.Desktop.getDesktop().browse(java.net.URI.create(urlString));       

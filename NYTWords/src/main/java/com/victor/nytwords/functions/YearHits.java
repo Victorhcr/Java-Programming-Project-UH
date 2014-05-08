@@ -31,6 +31,12 @@ public class YearHits {
         this.yearHits = new HashMap<>();
     }
     
+    /**
+     * Constructor of YearHits class
+     * @param word Word written by the user
+     * @param beg First year chosen by user
+     * @param end Last year chosen by user
+     */
     public YearHits(String word, int beg, int end){
         this.yearHits = new HashMap<>();
         this.word = word;
@@ -55,8 +61,16 @@ public class YearHits {
         writeFileMain();
     }
     
-    /* Add number of articles for the word chosen 
-     * in each year in the interval beg-end */
+    /**
+     * Add number of articles for the word chosen 
+     * in each year in the interval beg-end 
+     * @param word Word written by the user
+     * @param beg First year chosen by user
+     * @param end Last year chosen by user
+     * @return Return HashMap with key being the year and value being 
+     * the percentage of articles with the word chosen in that year
+     * @throws java.lang.Exception
+     **/
     public HashMap addHits(String word, int beg,int end) throws Exception{
         HashMap<Double,Double> result = new HashMap();
         String jsonWord;
@@ -83,10 +97,10 @@ public class YearHits {
     
     /**
      * Check if entries are valid for the parsing
-     * @param word
-     * @param beg
-     * @param end
-     * @return 
+     * @param word Word written by the user
+     * @param beg First year chosen by user
+     * @param end Last year chosen by user
+     * @return Check if year and word chosen are in the boundaries
      */
     private boolean checkEntriesBound(String word, int beg, int end){
         if(word.equals("") || beg > end || end > 2013){
@@ -97,8 +111,8 @@ public class YearHits {
     
     /**
      * Read API URL Page
-     * @param urlString
-     * @return
+     * @param urlString URL of NYTimes API
+     * @return Return data from site as a string
      * @throws Exception 
      */
     private String readUrl(String urlString) throws Exception {
@@ -122,8 +136,8 @@ public class YearHits {
     /**
      * Parse page received and get number 
      * of articles with that word
-     * @param jsonLine
-     * @return 
+     * @param jsonLine JSon String from API
+     * @return return number of articles in that year
      */
     private double parse(String jsonLine) {
         JsonElement jelement = new JsonParser().parse(jsonLine);
@@ -162,7 +176,7 @@ public class YearHits {
     
     /**
      * Return word parsed
-     * @return 
+     * @return Word parsed
      */
     public String getWord(){
         return this.word;
@@ -170,7 +184,7 @@ public class YearHits {
     
     /**
      * Return first year parsed 
-     * @return 
+     * @return First year
      */
     public int getBeg(){
         return this.beg;
@@ -178,7 +192,7 @@ public class YearHits {
     
     /**
      * Return last year parsed 
-     * @return 
+     * @return Last Year
      */
     public int getEnd(){
         return this.end;
@@ -186,7 +200,7 @@ public class YearHits {
     
     /**
      * Return HashMap
-     * @return 
+     * @return HashMap of year => percentage of articles
      */
     public HashMap getMap(){
         return this.yearHits;
