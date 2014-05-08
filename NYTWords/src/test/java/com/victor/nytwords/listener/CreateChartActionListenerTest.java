@@ -43,12 +43,71 @@ public class CreateChartActionListenerTest {
      * Test of replace method, of class CreateChartActionListener.
      */
     @Test
-    public void testReplace() {
-        String word = "São!pA:";
+    public void wordWithTilde() {
+        String word = "sã:";
         CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
-        String expResult = "SopA";
+        String expResult = "s";
         String result = instance.replace(word);
         assertEquals(expResult, result);
     }
     
+    /**
+     * Test of replace method, of class CreateChartActionListener.
+     */
+    @Test
+    public void wordWithColon() {
+        String word = "s:";
+        CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
+        String expResult = "s";
+        String result = instance.replace(word);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of replace method, of class CreateChartActionListener.
+     */
+    @Test
+    public void wordWithApostrophe() {
+        String word = "s\"";
+        CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
+        String expResult = "s";
+        String result = instance.replace(word);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of replace method, of class CreateChartActionListener.
+     */
+    @Test
+    public void wordWithCapitalLetter() {
+        String word = "sA";
+        CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
+        String expResult = "sA";
+        String result = instance.replace(word);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of replace method, of class CreateChartActionListener.
+     */
+    @Test
+    public void wordWithSpace() {
+        String word = " s b ";
+        CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
+        String expResult = "s b";
+        String result = instance.replace(word);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of replace method, of class CreateChartActionListener.
+     */
+    @Test
+    public void wordWithPlus() {
+        String word = "s+";
+        CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
+        String expResult = "s";
+        String result = instance.replace(word);
+        assertEquals(expResult, result);
+    }
 }
