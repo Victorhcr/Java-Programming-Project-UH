@@ -40,31 +40,15 @@ public class CreateChartActionListenerTest {
     }
 
     /**
-     * Test of actionPerformed method, of class CreateChartActionListener.
-     */
-    @Test
-    public void testActionPerformed() {
-        System.out.println("actionPerformed");
-        ActionEvent e = null;
-        CreateChartActionListener instance = null;
-        instance.actionPerformed(e);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of replace method, of class CreateChartActionListener.
      */
     @Test
     public void testReplace() {
-        System.out.println("replace");
-        String word = "";
-        CreateChartActionListener instance = null;
-        String expResult = "";
+        String word = "São!pA:";
+        CreateChartActionListener instance = new CreateChartActionListener(null,null,null,null,1);
+        String expResult = "SopA";
         String result = instance.replace(word);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

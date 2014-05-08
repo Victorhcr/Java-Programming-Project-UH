@@ -6,8 +6,8 @@
  */
 package com.victor.nytwords.listener;
 
-import com.victor.nytwords.filehandler.AllWordsFile;
-import com.victor.nytwords.filehandler.LogWordsFile;
+import com.victor.nytwords.filehandler.History;
+import com.victor.nytwords.filehandler.WordsPerLog;
 import com.victor.nytwords.functions.YearHits;
 import com.victor.nytwords.gui.Chart;
 import com.victor.nytwords.gui.View;
@@ -30,7 +30,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
     private final JComboBox firstYears;
     private final JComboBox lastYears;
     private final int logTime;
-    private final LogWordsFile logFile;
+    private final WordsPerLog logFile;
 
     public CreateChartActionListener(JTextField input, JFrame guiFrame,
             JComboBox firstYears, JComboBox lastYears, int logTime) {
@@ -39,7 +39,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         this.guiFrame = guiFrame;
         this.firstYears = firstYears;
         this.lastYears = lastYears;
-        this.logFile = new LogWordsFile(logTime,"files/history/");
+        this.logFile = new WordsPerLog(logTime,"files/history/");
     }
     
     /**
@@ -56,7 +56,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         int end = Integer.parseInt(String.valueOf(lastYears.getSelectedItem()));
         if (word.isEmpty()) return;
         YearHits yh = new YearHits(word, beg, end);
-        AllWordsFile wf = new AllWordsFile("files/all_words_statistics/notes.txt");
+        History wf = new History("files/all_words_statistics/notes.txt");
         try {
             this.logFile.updateWordsStatisticsFile(word);
             wf.updateWordsStatisticsFile(word);

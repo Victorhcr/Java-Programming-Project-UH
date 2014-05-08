@@ -8,7 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.victor.nytwords.filehandler.FileHandle;
+import com.victor.nytwords.filehandler.Data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,19 +20,19 @@ import org.apache.commons.lang.StringEscapeUtils;
  *
  * @author Victor Rodrigues
  */
-public class Articles {
+public class Article {
 
     private String[] headline;
     private String word;
     private int beg = -1;
     private int end;
-    private FileHandle handle;
+    private Data handle;
 
-    public Articles() {
+    public Article() {
         this.headline = new String[3];
     }
 
-    public Articles(String word, int beg, int end) {
+    public Article(String word, int beg, int end) {
         this.headline = new String[3];
         this.word = word;
         this.beg = beg;

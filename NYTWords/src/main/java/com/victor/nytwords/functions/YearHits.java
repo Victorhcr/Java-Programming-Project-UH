@@ -4,7 +4,7 @@
  */
 package com.victor.nytwords.functions;
 
-import com.victor.nytwords.filehandler.FileHandle;
+import com.victor.nytwords.filehandler.Data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -25,7 +25,7 @@ public class YearHits {
     private String word;
     private int beg = -1;
     private int end;
-    private FileHandle handle;
+    private Data handle;
     
     public YearHits(){
         this.yearHits = new HashMap<>();
@@ -48,7 +48,7 @@ public class YearHits {
         } catch (Exception e) {
             System.out.println("Problem in adding hits for word. More: \n" + e);
         } 
-        this.handle = new FileHandle(this.word,this.beg,this.end,this.yearHits);
+        this.handle = new Data(this.word,this.beg,this.end,this.yearHits);
         
         writeFile();
         writeFilePred();

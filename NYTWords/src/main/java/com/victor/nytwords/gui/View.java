@@ -2,8 +2,8 @@ package com.victor.nytwords.gui;
 
 //Imports are listed in full to show what's being used
 //could just import javax.swing.* and java.awt.* etc..
-import com.victor.nytwords.filehandler.AllWordsFile;
-import com.victor.nytwords.filehandler.MainLogWordsFile;
+import com.victor.nytwords.filehandler.History;
+import com.victor.nytwords.filehandler.MainFileWordsPerLog;
 import com.victor.nytwords.listener.CreateChartActionListener;
 import com.victor.nytwords.listener.YearsActionListener;
 import java.awt.BorderLayout;
@@ -38,13 +38,14 @@ public class View {
     JLabel word1 = new JLabel("Search for something!");
     JLabel word2 = new JLabel("");
     JLabel word3 = new JLabel("");
-    private final MainLogWordsFile mlw = new MainLogWordsFile();
+    private MainFileWordsPerLog mlw = new MainFileWordsPerLog("files/history/main.txt");
     private final int logTime = getLogTime();
 
     /**
      * Set the GUI configurations
      */
-    public View() {        
+    public View(String file) {      
+        this.mlw = new MainFileWordsPerLog(file);
         //Options for the First Year
         String[] firstYearOptions = new String[2013 - 1900 + 1];
         int count = 0;
@@ -77,12 +78,12 @@ public class View {
                 final ActionListener listenerButton = new CreateChartActionListener(input,
                 guiFrame, firstYears, lastYears, logTime);
                 listenerButton.actionPerformed(e);
-                updateMostSearchedWords();
+                updateMostSearchedWords("files/all_words_statistics/notes.txt");
             }
         });
 
-        updateMostSearchedWords();
-        this.words = addMostSearchedWords();
+        updateMostSearchedWords("files/all_words_statistics/notes.txt");
+        this.words = addMostSearchedWords(this.word1,this.word2,this.word3);
         
         this.panelTop = addToPanelTop(textPanel, comboPanel, createChart);
 
@@ -102,13 +103,13 @@ public class View {
         return panelTop;
     }
 
-    public JPanel addMostSearchedWords() {
+    public JPanel addMostSearchedWords(JLabel word1, JLabel word2, JLabel word3) {
         JPanel words = new JPanel();
         JLabel textWords = new JLabel("Most Searched Words:");
         words.add(textWords);
-        words.add(this.word1);
-        words.add(this.word2);
-        words.add(this.word3);
+        words.add(word1);
+        words.add(word2);
+        words.add(word3);
         return words;
     }
 
@@ -141,8 +142,8 @@ public class View {
         return mlw.getLog();
     }
 
-    public void updateMostSearchedWords() {
-        AllWordsFile wf = new AllWordsFile("files/all_words_statistics/notes.txt");
+    public void updateMostSearchedWords(String file) {
+        History wf = new History(file);
         if (wf.getIndexOrdered(1) != null) {
             this.word1.setText("1. " + wf.getIndexOrdered(1));
         }

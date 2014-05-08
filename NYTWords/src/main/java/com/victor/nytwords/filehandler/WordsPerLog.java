@@ -18,25 +18,32 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Victorhcr
  */
-public class AllWordsFile {
+public class WordsPerLog {
 
     private HashMap list;
-    private String file;
+    private final int logTime;
+    private final String file;
 
-    public AllWordsFile(String input) {
-        this.file = input;
+    public WordsPerLog(int input, String file) {
+        this.file = file;
+        this.logTime = input;
         this.list = new HashMap<String, Integer>();
-        this.list = getData();
-        this.list = sortHashMapByValues(this.list);
+        try {
+            createDoc(this.logTime + "");
+        } catch (IOException ex) {
+            Logger.getLogger(WordsPerLog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void updateWordsStatisticsFile(String word) throws IOException {
-        this.list = getData();
+        this.list = getData(this.logTime);
         if (!this.list.containsKey(word)) {
             addNewWord(word);
         } else {
@@ -74,10 +81,16 @@ public class AllWordsFile {
         }
         return sortedMap;
     }
+    
+    public void createDoc(String name) throws IOException{
+        Writer output;
+        output = new BufferedWriter(new FileWriter(this.file + "log" + name + ".txt", true));
+        output.close();
+    }
 
     public void addNewWord(String word) throws IOException {
         Writer output;
-        output = new BufferedWriter(new FileWriter("files/all_words_statistics/notes.txt", true));
+        output = new BufferedWriter(new FileWriter(this.file + "log" + this.logTime + ".txt", true));
         output.append(word + ": 1" + "\n");
         output.close();
     }
@@ -85,7 +98,7 @@ public class AllWordsFile {
     public void replaceSelected(String replaceWith, Integer type) {
         try {
             // input the file content to the String "input"
-            BufferedReader file = new BufferedReader(new FileReader(this.file));
+            BufferedReader file = new BufferedReader(new FileReader(this.file + "log" + this.logTime + ".txt"));
             String line;
             String input = "";
 
@@ -97,7 +110,7 @@ public class AllWordsFile {
             input = input.replace(replaceWith + ": " + type, replaceWith + ": " + (type + 1));
 
             // write the new String with the replaced line OVER the same file
-            FileOutputStream File = new FileOutputStream(this.file);
+            FileOutputStream File = new FileOutputStream(this.file + "log" + this.logTime + ".txt");
             File.write(input.getBytes());
 
         } catch (Exception e) {
@@ -109,17 +122,18 @@ public class AllWordsFile {
      * This method adds the data parsed from chosen file in getData method and
      * adds to the chart
      *
+     * @param logTime
      * @param series
      * @param file
      */
-    public HashMap getData() {
+    public HashMap getData(int logTime) {
         BufferedReader br = null;
         HashMap words = new HashMap();
         try {
             String sCurrentLine;
             String[] parts;
 
-            br = new BufferedReader(new FileReader(this.file));
+            br = new BufferedReader(new FileReader(this.file + "log" + logTime + ".txt"));
 
             while ((sCurrentLine = br.readLine()) != null) {
                 parts = sCurrentLine.split(": ");
@@ -154,3 +168,4 @@ public class AllWordsFile {
         return result;
     }
 }
+

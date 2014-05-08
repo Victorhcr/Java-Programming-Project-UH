@@ -18,30 +18,25 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Victorhcr
  */
-public class LogWordsFile {
+public class History {
 
     private HashMap list;
-    private final int logTime;
+    private String file;
 
-    public LogWordsFile(int input) {
-        this.logTime = input;
+    public History(String input) {
+        this.file = input;
         this.list = new HashMap<String, Integer>();
-        try {
-            createDoc(this.logTime + "");
-        } catch (IOException ex) {
-            Logger.getLogger(LogWordsFile.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.list = getData();
+        this.list = sortHashMapByValues(this.list);
     }
 
     public void updateWordsStatisticsFile(String word) throws IOException {
-        getData();
+        this.list = getData();
         if (!this.list.containsKey(word)) {
             addNewWord(word);
         } else {
@@ -79,16 +74,10 @@ public class LogWordsFile {
         }
         return sortedMap;
     }
-    
-    public void createDoc(String name) throws IOException{
-        Writer output;
-        output = new BufferedWriter(new FileWriter("files/history/log" + name + ".txt", true));
-        output.close();
-    }
 
     public void addNewWord(String word) throws IOException {
         Writer output;
-        output = new BufferedWriter(new FileWriter("files/history/log" + this.logTime + ".txt", true));
+        output = new BufferedWriter(new FileWriter("files/all_words_statistics/notes.txt", true));
         output.append(word + ": 1" + "\n");
         output.close();
     }
@@ -96,7 +85,7 @@ public class LogWordsFile {
     public void replaceSelected(String replaceWith, Integer type) {
         try {
             // input the file content to the String "input"
-            BufferedReader file = new BufferedReader(new FileReader("files/history/log" + this.logTime + ".txt"));
+            BufferedReader file = new BufferedReader(new FileReader(this.file));
             String line;
             String input = "";
 
@@ -108,7 +97,7 @@ public class LogWordsFile {
             input = input.replace(replaceWith + ": " + type, replaceWith + ": " + (type + 1));
 
             // write the new String with the replaced line OVER the same file
-            FileOutputStream File = new FileOutputStream("files/history/log" + this.logTime + ".txt");
+            FileOutputStream File = new FileOutputStream(this.file);
             File.write(input.getBytes());
 
         } catch (Exception e) {
@@ -123,17 +112,18 @@ public class LogWordsFile {
      * @param series
      * @param file
      */
-    public void getData() {
+    public HashMap getData() {
         BufferedReader br = null;
+        HashMap words = new HashMap();
         try {
             String sCurrentLine;
             String[] parts;
 
-            br = new BufferedReader(new FileReader("files/history/log" + this.logTime + ".txt"));
+            br = new BufferedReader(new FileReader(this.file));
 
             while ((sCurrentLine = br.readLine()) != null) {
                 parts = sCurrentLine.split(": ");
-                this.list.put(parts[0], Integer.parseInt(parts[1]));
+                words.put(parts[0], Integer.parseInt(parts[1]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -146,6 +136,7 @@ public class LogWordsFile {
                 ex.printStackTrace();
             }
         }
+        return words;
     }
 
     public String getIndexOrdered(int i) {
@@ -163,4 +154,3 @@ public class LogWordsFile {
         return result;
     }
 }
-

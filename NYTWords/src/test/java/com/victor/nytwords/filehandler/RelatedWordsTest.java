@@ -6,9 +6,9 @@
 
 package com.victor.nytwords.filehandler;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,75 +45,88 @@ public class RelatedWordsTest {
      * Test of getRelatedWords method, of class RelatedWords.
      */
     @Test
-    public void testGetRelatedWords() {
+    public void testGetRelatedWords() throws FileNotFoundException {
         System.out.println("getRelatedWords");
-        RelatedWords instance = null;
-        HashMap expResult = null;
-        HashMap result = instance.getRelatedWords();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        RelatedWords instance = new RelatedWords("war", "testfiles/history/main.txt");
+        HashMap wordsRelated = instance.getRelatedWords();
+        String result = null;
+        for(Object word: wordsRelated.keySet()){
+            result = (String) word;
+            break;
+        }
+        assertEquals("Brazil", result);
     }
 
     /**
      * Test of updateRelatedWords method, of class RelatedWords.
      */
     @Test
-    public void testUpdateRelatedWords() {
-        System.out.println("updateRelatedWords");
-        HashMap<String, Integer> parsedWords = null;
-        HashMap<String, Integer> result_2 = null;
-        RelatedWords instance = null;
-        HashMap expResult = null;
-        HashMap result = instance.updateRelatedWords(parsedWords, result_2);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testUpdateRelatedWords() throws FileNotFoundException {
+        System.out.println("sortHashMapByValues");
+        
+        HashMap passedMap = new HashMap();
+        passedMap.put("war", 1);
+        passedMap.put("love", 2);
+        
+        HashMap resultMap = new HashMap();
+        resultMap.put("Brazil", 1);
+        resultMap.put("war", 2);
+        
+        RelatedWords instance = new RelatedWords("war", "testfiles/history/main.txt");
+        resultMap = instance.updateRelatedWords(passedMap, resultMap);
+        
+        assertEquals(3, resultMap.get("war"));
     }
 
     /**
      * Test of getNumberDocuments method, of class RelatedWords.
      */
     @Test
-    public void testGetNumberDocuments() {
-        System.out.println("getNumberDocuments");
-        FileReader main = null;
-        RelatedWords instance = null;
-        int expResult = 0;
-        int result = instance.getNumberDocuments(main);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetNumberDocuments() throws FileNotFoundException {
+        System.out.println("getRelatedWords");
+        RelatedWords instance = new RelatedWords("war", "testfiles/history/main.txt");
+        int result = instance.getNumberDocuments(new FileReader("testfiles/history/main.txt"));
+        assertEquals(3, result);
     }
 
     /**
      * Test of getData method, of class RelatedWords.
      */
     @Test
-    public void testGetData() {
-        System.out.println("getData");
-        int logTime = 0;
-        RelatedWords instance = null;
-        HashMap expResult = null;
-        HashMap result = instance.getData(logTime);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetData() throws FileNotFoundException {
+        System.out.println("getRelatedWords");
+        int logTime = 2;
+        RelatedWords instance = new RelatedWords("war", "testfiles/history/main.txt");
+        HashMap wordsRelated = instance.getData(logTime);
+        String result = null;
+        for(Object word: wordsRelated.keySet()){
+            result = (String) word;
+            break;
+        }
+        assertEquals("Brazil", result);
     }
 
     /**
      * Test of sortHashMapByValues method, of class RelatedWords.
      */
     @Test
-    public void testSortHashMapByValues() {
+    public void testSortHashMapByValues() throws FileNotFoundException {
         System.out.println("sortHashMapByValues");
-        HashMap passedMap = null;
-        RelatedWords instance = null;
-        LinkedHashMap expResult = null;
-        LinkedHashMap result = instance.sortHashMapByValues(passedMap);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        HashMap passedMap = new HashMap();
+        HashMap resultMap = new HashMap();
+        passedMap.put("war", 1);
+        passedMap.put("love", 2);
+        
+        
+        RelatedWords instance = new RelatedWords("war", "testfiles/history/main.txt");
+        resultMap = instance.sortHashMapByValues(passedMap);
+        String result = null;
+        for(Object word: resultMap.keySet()){
+            result = (String) word;
+            break;
+        }
+        assertEquals("love", result);
     }
     
 }

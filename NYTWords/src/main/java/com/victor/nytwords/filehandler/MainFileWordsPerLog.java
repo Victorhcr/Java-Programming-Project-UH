@@ -16,15 +16,16 @@ import java.io.IOException;
  *
  * @author Victorhcr
  */
-public class MainLogWordsFile {
+public class MainFileWordsPerLog {
     private int logTime;
+    private String file;
     
-    public MainLogWordsFile(){
-        
+    public MainFileWordsPerLog(String input){
+        this.file = input;
     }
     
     public void start() throws FileNotFoundException, IOException{
-        getData(new FileReader("files/history/main.txt"));
+        this.logTime = getData(new FileReader(this.file));
         writeFileMain();
     }
     
@@ -34,13 +35,14 @@ public class MainLogWordsFile {
      *
      * @param main
      */
-    public void getData(FileReader main) {
+    public int getData(FileReader main) {
         BufferedReader br = null;
+        int logTime = -1;
         try {
             String sCurrentLine;
             br = new BufferedReader(main);
 
-            this.logTime = Integer.parseInt(br.readLine());
+            logTime = Integer.parseInt(br.readLine());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,6 +55,7 @@ public class MainLogWordsFile {
                 ex.printStackTrace();
             }
         }
+        return logTime;
     }
     
     /**

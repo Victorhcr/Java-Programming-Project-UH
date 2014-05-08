@@ -19,13 +19,13 @@ import java.util.Locale;
  *
  * @author Victorhcr
  */
-public class FileHandle {
+public class Data {
     private HashMap yearHits;
     private String word;
     private int beg;
     private int end;
     
-    public FileHandle(String word, int beg, int end, HashMap years){
+    public Data(String word, int beg, int end, HashMap years){
         this.yearHits = years;
         this.beg = beg;
         this.end = end;

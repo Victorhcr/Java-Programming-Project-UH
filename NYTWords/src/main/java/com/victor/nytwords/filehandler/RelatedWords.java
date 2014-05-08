@@ -25,9 +25,9 @@ public class RelatedWords {
     private int numberDocuments;
     private String word;
 
-    public RelatedWords(String input) throws FileNotFoundException {
+    public RelatedWords(String input, String file) throws FileNotFoundException {
         this.word = input;
-        this.numberDocuments = getNumberDocuments(new FileReader("files/history/main.txt"));
+        this.numberDocuments = getNumberDocuments(new FileReader(file));
     }
 
     public HashMap getRelatedWords() {

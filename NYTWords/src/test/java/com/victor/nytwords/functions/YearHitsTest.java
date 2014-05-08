@@ -8,6 +8,7 @@ package com.victor.nytwords.functions;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.junit.Assert.*;
@@ -99,7 +100,7 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         double get = 2013.0;
-        calculate(word, beg, end, get,20.95898451830655);
+        calculate(word, beg, end, get,20.92321617136823);
     }
     
     /* Another word and one year */
@@ -110,7 +111,7 @@ public class YearHitsTest {
         int beg = 2005;
         int end = 2005;
         double get = 2005.0;
-        calculate(word, beg, end, get,9.049244271087275);
+        calculate(word, beg, end, get,9.041279570922326);
     }
     
     /* Empty word and random range of years */
@@ -132,7 +133,7 @@ public class YearHitsTest {
         int beg = 2000;
         int end = 2001;
         double get = 2000.0;
-        calculate(word, beg, end, get,21.659712563745945);
+        calculate(word, beg, end, get,21.31860170259011);
     }
     
     /* Another word and two years getting the last year */
@@ -143,7 +144,7 @@ public class YearHitsTest {
         int beg = 2000;
         int end = 2001;
         double get = 2001.0;
-        calculate(word, beg, end, get,8.486662558323797);
+        calculate(word, beg, end, get,8.336929317338397);
     }
     
     /* Non existent word and random range of years */
@@ -187,6 +188,36 @@ public class YearHitsTest {
         int beg = 2013;
         int end = 2013;
         double get = 2013.0;
-        calculate(word, beg, end, get,1.7242644361288428);
+        calculate(word, beg, end, get,1.5688640820636597);
+    }
+    
+    /* Word with space and an existing year */
+    @Test
+    public void getWord() {
+        YearHits yh = new YearHits("war", 2010,2013);
+        assertEquals("war", yh.getWord());
+    }
+    
+    /* Word with space and an existing year */
+    @Test
+    public void getBeg() {
+        YearHits yh = new YearHits("war", 2010,2013);
+        assertEquals(2010, yh.getBeg());
+    }
+    
+    /* Word with space and an existing year */
+    @Test
+    public void getEnd() {
+        YearHits yh = new YearHits("war", 2010,2013);
+        assertEquals(2013, yh.getEnd());
+    }
+    
+    /* Word with space and an existing year */
+    @Test
+    public void getMap() throws Exception {
+        YearHits yh = new YearHits("war", 2013,2013);
+        HashMap result = new HashMap();
+        result.put(2013.0, 20.92321617136823);
+        assertEquals(result, yh.addHits("war", 2013, 2013));
     }
 }

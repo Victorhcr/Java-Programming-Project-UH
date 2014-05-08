@@ -1,7 +1,7 @@
 package com.victor.nytwords.gui;
 
 import com.victor.nytwords.filehandler.RelatedWords;
-import com.victor.nytwords.functions.Articles;
+import com.victor.nytwords.functions.Article;
 import com.victor.nytwords.listener.OpenUrlActionListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -29,7 +29,7 @@ import org.jfree.ui.RectangleInsets;
 public class Chart extends JFrame {
 
     JButton readMore = new JButton("Read More!");
-    private Articles hl;
+    private Article hl;
     private String word;
     private int beg;
     private int end;
@@ -43,7 +43,7 @@ public class Chart extends JFrame {
 
         FileReader main = new FileReader("files/words_data/main.txt");
         getData(main);
-        hl = new Articles(this.word, this.beg, this.end);
+        hl = new Article(this.word, this.beg, this.end);
         hl.start();
 
         this.fileNorm = new FileReader("files/words_data/" + this.word + "-" + this.beg + "-" + this.end + ".txt");
@@ -93,7 +93,7 @@ public class Chart extends JFrame {
     }
 
     public void addRelatedWords() throws FileNotFoundException {
-        RelatedWords rl = new RelatedWords(this.word);
+        RelatedWords rl = new RelatedWords(this.word,"files/history/main.txt");
         int counter = 1;
         int max = 3;
         Set rlKeySet = rl.getRelatedWords().keySet();

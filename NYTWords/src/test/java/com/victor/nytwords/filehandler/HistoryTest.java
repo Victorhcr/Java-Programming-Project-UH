@@ -6,8 +6,10 @@
 
 package com.victor.nytwords.filehandler;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,9 +21,9 @@ import static org.junit.Assert.*;
  *
  * @author Victorhcr
  */
-public class LogWordsFileTest {
+public class HistoryTest {
     
-    public LogWordsFileTest() {
+    public HistoryTest() {
     }
     
     @BeforeClass
@@ -39,13 +41,36 @@ public class LogWordsFileTest {
     @After
     public void tearDown() {
     }
+    
+    public String readFirstLineFile(String input){
+        BufferedReader br = null;
+        String result = null;
+        try {
+            String sCurrentLine;
+            br = new BufferedReader(new FileReader(input));
+
+            result = br.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
 
     /**
      * Test of sortHashMapByValues method, of class AllWordsFile.
      */
     @Test
     public void testSortHashMapByValues() {
-        LogWordsFile instance = new LogWordsFile(2);
+        History instance = new History("testfiles/all_words_statistics/notes.txt");
         HashMap words = new HashMap();
         words.put("war", 1);
         words.put("love", 2);
@@ -65,7 +90,7 @@ public class LogWordsFileTest {
     @Test
     public void testGetData() {
         HashMap words = new HashMap();
-        AllWordsFile instance = new AllWordsFile("testfiles/all_words_statistics/notes.txt");
+        History instance = new History("testfiles/all_words_statistics/notes.txt");
         words = instance.getData();
         // TODO review the generated test code and remove the default call to fail.
         assertEquals(1, words.get("war"));
@@ -77,7 +102,7 @@ public class LogWordsFileTest {
     @Test
     public void testGetIndexOrdered() {
         int i = 1;
-        AllWordsFile instance = new AllWordsFile("testfiles/all_words_statistics/notes.txt");
+        History instance = new History("testfiles/all_words_statistics/notes.txt");
         String expResult = "love";
         String result = instance.getIndexOrdered(1);
         assertEquals(expResult, result);
