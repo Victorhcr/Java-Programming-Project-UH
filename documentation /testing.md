@@ -14,3 +14,5 @@ Bugs:
 If a person changes some values in the files folder they can compromise the whole program. I didn't have time to do it, but a good idea in those cases would be to create a "Reset Button" with which the user could erase all the damaged data and continue using the program as it was new.
 
 Sometimes NYTimes changes some articles in their database, which makes some tests to fail. The solution is to update the program numbers as soon as the problem is seen.
+
+If you type for example the word "@ @", you entry will be validated as " ", and it will be considered a word searched. Nevertheless, it won't be plotted, since the chart has another check system. This is not so hard to correct, but to do so I would have to send the project after the deadline.
