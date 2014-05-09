@@ -59,6 +59,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         //Execute when button is pressed
         String word = input.getText();
         word = replace(word);
+        word = replace(word);
         if (lastYears.getSelectedItem()==null) return;
         int beg = Integer.parseInt(String.valueOf(firstYears.getSelectedItem()));
         int end = Integer.parseInt(String.valueOf(lastYears.getSelectedItem()));
