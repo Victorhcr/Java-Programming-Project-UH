@@ -51,9 +51,9 @@ public class PredictorTest {
      * Test of averageMult method, of class LinReg.
      */
     @Test
-    public void averageMult() {
+    public void averageMultiplication() {
         double expResult = 4004.66;
-        double result = this.lr.averageMult();
+        double result = this.lr.averageMultiplication();
         assertEquals(expResult, result, 0.01);
     }
     
@@ -71,10 +71,19 @@ public class PredictorTest {
      * Test of angCoef method, of class LinReg.
      */
     @Test
-    public void angCoef() {
+    public void angularCoefficient() {
         double expResult = 1.0000000002326033;
         double result = this.lr.angularCoefficient();
         assertEquals(expResult, result, 0.00);
     }
     
+    /**
+     * Test of angCoef method, of class LinReg.
+     */
+    @Test
+    public void predict() {
+        double expResult = 4.0000000004652065;
+        double result = this.lr.predict();
+        assertEquals(expResult, result, 0.00);
+    }
 }

@@ -55,7 +55,7 @@ public class Predictor {
      * x coordinate times respective y coordinate
      * @return Returns the average of multiplication of x cord with y cord
      */
-    public double averageMult(){
+    public double averageMultiplication(){
         double total = 0;
         int cnt = 0;
         for(Double d : this.points.keySet()){
@@ -73,7 +73,7 @@ public class Predictor {
         double avgNX = averageNormal(this.points.keySet());
         double avgNY = averageNormal(this.points.values());
         double avgSX = averageSquare(this.points.keySet());
-        double avgMXY = averageMult();
+        double avgMXY = averageMultiplication();
         
         double num = avgNX*avgNY - avgMXY;
         double den = avgNX*avgNX -avgSX;

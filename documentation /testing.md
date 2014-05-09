@@ -1,8 +1,7 @@
 What did you not test automatically and why?
 
 1) I did not test if the points are shown correctly in the chart.
-2) I did not test if the data coming from NYTimes is correct.
-3) I did not test the FileHandle class.
+2) I did not test the methods that write files.
 
 How have these things been tested manually?
 
