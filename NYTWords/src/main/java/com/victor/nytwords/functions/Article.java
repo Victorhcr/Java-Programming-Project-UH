@@ -8,24 +8,22 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.victor.nytwords.filehandler.Data;
-import java.io.BufferedReader;
+import com.victor.nytwords.abstractclasses.GetAPIData;
+import com.victor.nytwords.filehandler.SaveAPIData;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 
 /**
  * Gets Data from New York Times API and saves in the computer
  *
  * @author Victor Rodrigues
  */
-public class Article {
+public class Article extends GetAPIData {
 
     private String[] article;
     private String word;
     private int beg = -1;
     private int end;
-    private Data handle;
+    private SaveAPIData handle;
 
     /**
      * 
@@ -77,17 +75,15 @@ public class Article {
                 + "key=4ddea52e9d7cc30124e3efe576c26530:14:68745688");
 
         result = parse(jsonWord);
-        System.out.println(result[0]);
-
         return result;
     }
 
     /**
      * Check if entries are valid for the parsing
      *
-     * @param word
-     * @param beg
-     * @param end
+     * @param word Word written by user
+     * @param beg First year chosen by user
+     * @param end Last year chosen by user
      * @return
      */
     private boolean checkEntriesBound(String word, int beg, int end) {
@@ -95,33 +91,6 @@ public class Article {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Read API URL Page
-     *
-     * @param urlString
-     * @return
-     * @throws Exception
-     */
-    private String readUrl(String urlString) throws Exception {
-        BufferedReader reader = null;
-        try {
-            URL url = new URL(urlString);
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            StringBuilder buffer = new StringBuilder();
-            int read;
-            char[] chars = new char[1024];
-            while ((read = reader.read(chars)) != -1) {
-                buffer.append(chars, 0, read);
-            }
-
-            return buffer.toString();
-        } finally {
-            if (reader != null) {
-                reader.close();
-            }
-        }
     }
 
     /**

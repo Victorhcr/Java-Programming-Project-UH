@@ -2,8 +2,9 @@ package com.victor.nytwords.gui;
 
 //Imports are listed in full to show what's being used
 //could just import javax.swing.* and java.awt.* etc..
-import com.victor.nytwords.filehandler.History;
+import com.victor.nytwords.filehandler.AllWordsSearched;
 import com.victor.nytwords.filehandler.MainFileWordsPerLog;
+import com.victor.nytwords.filehandler.WordsPerLog;
 import com.victor.nytwords.listener.CreateChartActionListener;
 import com.victor.nytwords.listener.YearsActionListener;
 import java.awt.BorderLayout;
@@ -40,6 +41,7 @@ public class View {
     JLabel word3 = new JLabel("");
     private MainFileWordsPerLog mlw = new MainFileWordsPerLog("files/history/main.txt");
     private final int logTime = getLogTime();
+    private WordsPerLog createDoc = new WordsPerLog(logTime, "files/history/");
 
     /**
      * Set the GUI configurations
@@ -77,7 +79,7 @@ public class View {
         createChart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 final ActionListener listenerButton = new CreateChartActionListener(input,
-                guiFrame, firstYears, lastYears, logTime);
+                guiFrame, firstYears, lastYears,logTime);
                 listenerButton.actionPerformed(e);
                 updateMostSearchedWords("files/all_words_statistics/notes.txt");
             }
@@ -173,17 +175,17 @@ public class View {
      * @param file Path to notes file in Word Statistics Folder
      */
     public void updateMostSearchedWords(String file) {
-        History wf = new History(file);
-        if (wf.getWordByIndexOrder(1) != null) {
-            this.word1.setText("1. " + wf.getWordByIndexOrder(1));
+        AllWordsSearched wf = new AllWordsSearched(file);
+        if (wf.getWordByIndexOrder(1,wf.getList()) != null) {
+            this.word1.setText("1. " + wf.getWordByIndexOrder(1,wf.getList()));
         }
 
-        if (wf.getWordByIndexOrder(2) != null) {
-            this.word2.setText("2. " + wf.getWordByIndexOrder(2));
+        if (wf.getWordByIndexOrder(2,wf.getList()) != null) {
+            this.word2.setText("2. " + wf.getWordByIndexOrder(2,wf.getList()));
         }
 
-        if (wf.getWordByIndexOrder(3) != null) {
-            this.word3.setText("3. " + wf.getWordByIndexOrder(3));
+        if (wf.getWordByIndexOrder(3,wf.getList()) != null) {
+            this.word3.setText("3. " + wf.getWordByIndexOrder(3,wf.getList()));
         }
     }
 

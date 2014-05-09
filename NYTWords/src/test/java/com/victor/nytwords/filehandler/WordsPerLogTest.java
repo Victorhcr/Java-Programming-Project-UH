@@ -64,7 +64,7 @@ public class WordsPerLogTest {
     @Test
     public void testGetData() {
         HashMap words = new HashMap();
-        History instance = new History("testfiles/all_words_statistics/notes.txt");
+        AllWordsSearched instance = new AllWordsSearched("testfiles/all_words_statistics/notes.txt");
         words = instance.getData();
         // TODO review the generated test code and remove the default call to fail.
         assertEquals(1, words.get("war"));
@@ -76,9 +76,9 @@ public class WordsPerLogTest {
     @Test
     public void testGetIndexOrdered() {
         int i = 1;
-        History instance = new History("testfiles/all_words_statistics/notes.txt");
+        AllWordsSearched instance = new AllWordsSearched("testfiles/all_words_statistics/notes.txt");
         String expResult = "love";
-        String result = instance.getWordByIndexOrder(1);
+        String result = instance.getWordByIndexOrder(1,instance.getList());
         assertEquals(expResult, result);
     }
     

@@ -56,10 +56,11 @@ public class RelatedWords {
     }
 
     /**
-     * 
-     * @param parsedWords
-     * @param result
-     * @return 
+     * This method updates the quantity of words parsed in log files that
+     * have the word written by the user
+     * @param parsedWords Words parsed in a new log file
+     * @param result Words parsed until the moment
+     * @return Words parsed in a new log file union with words parsed until the moment
      */
     public HashMap updateRelatedWords(HashMap<String, Integer> parsedWords,
             HashMap<String, Integer> result) {
@@ -77,7 +78,7 @@ public class RelatedWords {
      * This method gets data from file in user computer and check which file to
      * parse
      *
-     * @param main
+     * @param main Main file of History folder
      */
     public int getNumberDocuments(FileReader main) {
         BufferedReader br = null;
@@ -86,7 +87,6 @@ public class RelatedWords {
             br = new BufferedReader(main);
 
             this.numberDocuments = Integer.parseInt(br.readLine());
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

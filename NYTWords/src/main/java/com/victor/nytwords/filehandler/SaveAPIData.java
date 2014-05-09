@@ -19,7 +19,7 @@ import java.util.Locale;
  * 
  * @author Victorhcr
  */
-public class Data {
+public class SaveAPIData {
     private HashMap yearHits;
     private String word;
     private int beg;
@@ -32,7 +32,7 @@ public class Data {
      * @param end Last year chosen by the user
      * @param years HashMap containing the percentage of articles for each year
      */
-    public Data(String word, int beg, int end, HashMap years){
+    public SaveAPIData(String word, int beg, int end, HashMap years){
         this.yearHits = years;
         this.beg = beg;
         this.end = end;

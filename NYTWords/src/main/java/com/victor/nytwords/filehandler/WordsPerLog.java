@@ -5,20 +5,14 @@
  */
 package com.victor.nytwords.filehandler;
 
-import com.victor.nytwords.interfaces.WordStatistics;
+import com.victor.nytwords.abstractclasses.WordHistory;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Victorhcr
  */
-public class WordsPerLog implements WordStatistics{
+public final class WordsPerLog extends WordHistory {
 
     private HashMap list;
     private final int logTime;
@@ -40,7 +34,7 @@ public class WordsPerLog implements WordStatistics{
     public WordsPerLog(int input, String file) {
         this.file = file;
         this.logTime = input;
-        this.list = new HashMap<String, Integer>();
+        this.list = new HashMap<>();
         try {
             createDoc(this.logTime + "");
         } catch (IOException ex) {
@@ -57,47 +51,11 @@ public class WordsPerLog implements WordStatistics{
     public void updateWordsStatisticsFile(String word) throws IOException {
         this.list = getData(this.logTime);
         if (!this.list.containsKey(word)) {
-            addNewWord(word);
+            addNewWord(word,this.file + "log" + this.logTime + ".txt");
         } else {
-            replaceSelectedWordLine(word, (Integer) this.list.get(word));
+            replaceSelectedWordLine(word, (Integer) this.list.get(word),this.file + "log" + this.logTime + ".txt");
         }
         this.list = sortHashMapByValues(this.list);
-    }
-
-    /**
-     * Sort the passedMap by value
-     * @param passedMap A HashMap of each history log file
-     * @return Sort HashMap by value
-     */
-    @Override
-    public LinkedHashMap sortHashMapByValues(HashMap passedMap) {
-        List mapKeys = new ArrayList(passedMap.keySet());
-        List mapValues = new ArrayList(passedMap.values());
-        Collections.sort(mapValues);
-        Collections.reverse(mapValues);
-        Collections.sort(mapKeys);
-
-        LinkedHashMap sortedMap = new LinkedHashMap();
-
-        Iterator valueIt = mapValues.iterator();
-        while (valueIt.hasNext()) {
-            Object val = valueIt.next();
-            Iterator keyIt = mapKeys.iterator();
-
-            while (keyIt.hasNext()) {
-                Object key = keyIt.next();
-                String comp1 = passedMap.get(key).toString();
-                String comp2 = val.toString();
-
-                if (comp1.equals(comp2)) {
-                    passedMap.remove(key);
-                    mapKeys.remove(key);
-                    sortedMap.put((String) key, (Integer) val);
-                    break;
-                }
-            } 
-        }
-        return sortedMap;
     }
     
     /**
@@ -109,49 +67,6 @@ public class WordsPerLog implements WordStatistics{
         Writer output;
         output = new BufferedWriter(new FileWriter(this.file + "log" + number + ".txt", true));
         output.close();
-    }
-
-    /**
-     * Add word not used before to the log file
-     * @param word Word wrote by the user
-     * @throws IOException 
-     */
-    @Override
-    public void addNewWord(String word) throws IOException {
-        Writer output;
-        output = new BufferedWriter(new FileWriter(this.file + "log" + this.logTime + ".txt", true));
-        output.append(word + ": 1" + "\n");
-        output.close();
-    }
-
-    /**
-     * Update the number of times the word input by the user was written in the
-     * program in the history file
-     * @param word Word wrote by the user
-     * @param times Times the word was written in the program
-     */
-    @Override
-    public void replaceSelectedWordLine(String word, Integer times) {
-        try {
-            // input the file content to the String "input"
-            BufferedReader file = new BufferedReader(new FileReader(this.file + "log" + this.logTime + ".txt"));
-            String line;
-            String input = "";
-
-            while ((line = file.readLine()) != null) {
-                input += line + '\n';
-            }
-
-            // this if structure determines whether or not to replace
-            input = input.replace(word + ": " + times, word + ": " + (times + 1));
-
-            // write the new String with the replaced line OVER the same file
-            FileOutputStream File = new FileOutputStream(this.file + "log" + this.logTime + ".txt");
-            File.write(input.getBytes());
-
-        } catch (Exception e) {
-            System.out.println("Problem reading file.");
-        }
     }
 
     /**
@@ -188,24 +103,11 @@ public class WordsPerLog implements WordStatistics{
     }
 
     /**
-     * Gets the the i-th most written word in the program
-     * @param i Position of word in the sorted by value HashMap
-     * @return Word ranked in the i position
+     * Returns list of words
+     * @return List of words with number of times user
      */
-    @Override
-    public String getWordByIndexOrder(int i) {
-        List keys = new ArrayList(this.list.keySet()); 
-        String result = null;  
-        int count = 1;
-        
-        for(Object word : keys){
-            if(count==i){
-                result = (String) word;
-                break;
-            }
-            count++;
-        } 
-        return result;
+    public HashMap getList(){
+        return this.list;
     }
 }
 

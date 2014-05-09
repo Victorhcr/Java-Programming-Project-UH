@@ -6,7 +6,7 @@
  */
 package com.victor.nytwords.listener;
 
-import com.victor.nytwords.filehandler.History;
+import com.victor.nytwords.filehandler.AllWordsSearched;
 import com.victor.nytwords.filehandler.WordsPerLog;
 import com.victor.nytwords.functions.YearHits;
 import com.victor.nytwords.gui.Chart;
@@ -47,7 +47,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         this.guiFrame = guiFrame;
         this.firstYears = firstYears;
         this.lastYears = lastYears;
-        this.logFile = new WordsPerLog(logTime,"files/history/");
+        this.logFile = new WordsPerLog(logTime, "files/history/");
     }
     
     /**
@@ -64,7 +64,7 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         int end = Integer.parseInt(String.valueOf(lastYears.getSelectedItem()));
         if (word.isEmpty()) return;
         YearHits yh = new YearHits(word, beg, end);
-        History wf = new History("files/all_words_statistics/notes.txt");
+        AllWordsSearched wf = new AllWordsSearched("files/all_words_statistics/notes.txt");
         try {
             this.logFile.updateWordsStatisticsFile(word);
             wf.updateWordsStatisticsFile(word);
@@ -85,7 +85,12 @@ public class CreateChartActionListener implements java.awt.event.ActionListener 
         String all = " abcdefghijklmnopqrstuvxwyz1234567890";
         String result = "";
         word = word.trim();
+        
+        int MAX_CHAR = 20;
+        int maxLength = (word.length() < MAX_CHAR)?word.length():MAX_CHAR;
+        word = word.substring(0, maxLength);
         char[] wordArray = word.toCharArray();
+        
         for(int i = 0; i < word.length();i++){
             if(all.contains(Character.toString(word.toLowerCase().charAt(i)))){
                 result+=Character.toString(word.charAt(i));

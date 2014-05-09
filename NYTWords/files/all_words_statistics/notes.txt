@@ -1,9 +1,9 @@
 war: 24
 love: 3
-test: 47
+test: 50
 World War 2: 1
 Rio de Janeiro: 4
-Brazil: 20
+Brazil: 22
 flewbkf: 1
 fwlhfuf: 1
 São Paulo: 1
@@ -41,3 +41,20 @@ war: 1
 Sao Paulo: 1
 Hi: 3
 Nokia: 1
+Helsinki: 1
+Estonia: 1
+Norway: 1
+blbvern: 1
+hehehe: 1
+weiofjfioofnw: 1
+vwehfreaofr: 1
+Manaus: 24
+fweiuhr vuieohfguirt: 1
+Natal: 2
+Argentina: 1
+France: 2
+hahahahahahah: 1
+hahahahahahhaha: 1
+Hei: 1
+Alo: 1
+191: 2

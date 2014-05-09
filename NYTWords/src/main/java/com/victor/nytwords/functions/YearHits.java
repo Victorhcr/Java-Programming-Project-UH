@@ -4,14 +4,12 @@
  */
 package com.victor.nytwords.functions;
 
-import com.victor.nytwords.filehandler.Data;
+import com.victor.nytwords.filehandler.SaveAPIData;
+import com.victor.nytwords.abstractclasses.GetAPIData;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -19,13 +17,13 @@ import java.util.HashMap;
  * and saves in the computer
  * @author Victor Rodrigues
  */
-public class YearHits {
+public class YearHits extends GetAPIData {
 
     private HashMap yearHits;
     private String word;
     private int beg = -1;
     private int end;
-    private Data handle;
+    private SaveAPIData handle;
     
     public YearHits(){
         this.yearHits = new HashMap<>();
@@ -54,7 +52,7 @@ public class YearHits {
         } catch (Exception e) {
             System.out.println("Problem in adding hits for word. More: \n" + e);
         } 
-        this.handle = new Data(this.word,this.beg,this.end,this.yearHits);
+        this.handle = new SaveAPIData(this.word,this.beg,this.end,this.yearHits);
         
         writeFile();
         writeFilePred();
@@ -107,30 +105,6 @@ public class YearHits {
             return true;
         }
         return false;
-    }
-    
-    /**
-     * Read API URL Page
-     * @param urlString URL of NYTimes API
-     * @return Return data from site as a string
-     * @throws Exception 
-     */
-    private String readUrl(String urlString) throws Exception {
-        BufferedReader reader = null;
-        try {
-            URL url = new URL(urlString);
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            StringBuilder buffer = new StringBuilder();
-            int read;
-            char[] chars = new char[1024];
-            while ((read = reader.read(chars)) != -1)
-                buffer.append(chars, 0, read); 
-
-            return buffer.toString();
-        } finally {
-            if (reader != null)
-                reader.close();
-        }
     }
     
     /**
