@@ -56,6 +56,11 @@ public abstract class WordHistory {
         }
     }
     
+    /**
+     * Update file of history of words used by users
+     * @param word Word wrote by the user
+     * @throws java.io.IOException Something interrupts I/O
+     */
     abstract public void updateWordsStatisticsFile(String word) throws IOException;
     
     /**
@@ -96,7 +101,8 @@ public abstract class WordHistory {
     /**
      * Add word not used before to the history file
      * @param word Word wrote by the user
-     * @throws IOException 
+     * @param filePath Path in the computer to the history file
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void addNewWord(String word, String filePath) throws IOException {
         Writer output;

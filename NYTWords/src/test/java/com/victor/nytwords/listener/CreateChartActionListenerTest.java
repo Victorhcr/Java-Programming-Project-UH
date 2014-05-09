@@ -41,6 +41,7 @@ public class CreateChartActionListenerTest {
 
     /**
      * Test of replace method, of class CreateChartActionListener.
+     * Word with a tilde
      */
     @Test
     public void wordWithTilde() {
@@ -53,6 +54,7 @@ public class CreateChartActionListenerTest {
     
     /**
      * Test of replace method, of class CreateChartActionListener.
+     * Word with a colon
      */
     @Test
     public void wordWithColon() {
@@ -65,6 +67,7 @@ public class CreateChartActionListenerTest {
     
     /**
      * Test of replace method, of class CreateChartActionListener.
+     * Word with apostrophe
      */
     @Test
     public void wordWithApostrophe() {
@@ -77,6 +80,7 @@ public class CreateChartActionListenerTest {
     
     /**
      * Test of replace method, of class CreateChartActionListener.
+     * Word with a capital letter
      */
     @Test
     public void wordWithCapitalLetter() {
@@ -89,6 +93,7 @@ public class CreateChartActionListenerTest {
     
     /**
      * Test of replace method, of class CreateChartActionListener.
+     * Word with Space
      */
     @Test
     public void wordWithSpace() {
@@ -101,6 +106,7 @@ public class CreateChartActionListenerTest {
     
     /**
      * Test of replace method, of class CreateChartActionListener.
+     * Word with a plus
      */
     @Test
     public void wordWithPlus() {

@@ -48,7 +48,7 @@ public class Article extends GetAPIData {
     /**
      * Start program with variables from View class
      *
-     * @throws IOException
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void start() throws IOException {
         try {
@@ -84,7 +84,7 @@ public class Article extends GetAPIData {
      * @param word Word written by user
      * @param beg First year chosen by user
      * @param end Last year chosen by user
-     * @return
+     * @return True if boundaries are right and wrong otherwise
      */
     private boolean checkEntriesBound(String word, int beg, int end) {
         if (word.equals("") || beg > end || end > 2013) {

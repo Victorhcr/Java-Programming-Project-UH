@@ -20,7 +20,7 @@ public abstract class GetAPIData {
      * Read API URL Page
      * @param urlString URL of NYTimes API
      * @return Return data from site as a string
-     * @throws Exception 
+     * @throws java.lang.Exception Something wrong happens with BufferedReader
      */
     public String readUrl(String urlString) throws Exception {
         BufferedReader reader = null;

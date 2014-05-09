@@ -44,7 +44,7 @@ public class YearHits extends GetAPIData {
     
     /**
      * Start program with variables from View class
-     * @throws IOException 
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void start() throws IOException{
         try{
@@ -67,7 +67,7 @@ public class YearHits extends GetAPIData {
      * @param end Last year chosen by user
      * @return Return HashMap with key being the year and value being 
      * the percentage of articles with the word chosen in that year
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Some error in word URL encoder
      **/
     public HashMap addHits(String word, int beg,int end) throws Exception{
         HashMap<Double,Double> result = new HashMap();
@@ -126,7 +126,6 @@ public class YearHits extends GetAPIData {
      * Write file specifying the word,
      * the first year and last year of
      * last time (now) program was executed
-     * @throws IOException 
      */
     private void writeFileMain() throws IOException{
         this.handle.writeFileMain();
@@ -134,15 +133,13 @@ public class YearHits extends GetAPIData {
     
     /**
      * Write file with all data normalized (in percentage per year)
-     * @throws IOException 
      */
     private void writeFile() throws IOException{  
         this.handle.writeFile();
     }
     
     /**
-     * Predict the next year Article hits
-     * @throws IOException 
+     * Predict the next year Article hits 
      */
     private void writeFilePred() throws IOException{
         this.handle.writeFilePred();
@@ -174,7 +171,7 @@ public class YearHits extends GetAPIData {
     
     /**
      * Return HashMap
-     * @return HashMap of year => percentage of articles
+     * @return HashMap of year = percentage of articles
      */
     public HashMap getMap(){
         return this.yearHits;

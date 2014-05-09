@@ -41,20 +41,20 @@ public class SaveAPIData {
     
     /**
      * Writes prediction file based on data from NYTimes API
-     * @throws IOException 
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void writeFilePred() throws IOException{
         FileWriter file = new FileWriter("files/words_data/prediction-" + this.word + "-" + this.beg + "-" + this.end + ".txt");
-        Predictor lr = new Predictor(this.yearHits);
-        file.append(String.format(Locale.US, "%.0f", lr.max()) + ": " + String.format(Locale.US, "%.2f", this.yearHits.get(lr.max())) + "\n");
-        file.append(String.format(Locale.US, "%.0f", lr.max()+1) + ": " + String.format(Locale.US, "%.2f", lr.predict()) + "\n");
+        Predictor predictor = new Predictor(this.yearHits);
+        file.append(String.format(Locale.US, "%.0f", predictor.max()) + ": " + String.format(Locale.US, "%.2f", this.yearHits.get(predictor.max())) + "\n");
+        file.append(String.format(Locale.US, "%.0f", predictor.max()+1) + ": " + String.format(Locale.US, "%.2f", predictor.predict()) + "\n");
         file.append("-");
         file.close();
     }
     
     /**
-     * Write data parsed from NYTimes API
-     * @throws IOException 
+     * Write data parsed from NYTimes API 
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void writeFile() throws IOException{
         FileWriter file = new FileWriter("files/words_data/" + this.word + "-" + this.beg + "-" + this.end + ".txt"); 
@@ -69,7 +69,7 @@ public class SaveAPIData {
     
     /**
      * Write Main file
-     * @throws IOException 
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void writeFileMain() throws IOException{
         FileWriter main = new FileWriter("files/words_data/main.txt");

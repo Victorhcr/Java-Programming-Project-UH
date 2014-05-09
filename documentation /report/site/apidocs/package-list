@@ -1,4 +1,5 @@
 com.victor.nytwords
+com.victor.nytwords.abstractclasses
 com.victor.nytwords.filehandler
 com.victor.nytwords.functions
 com.victor.nytwords.gui

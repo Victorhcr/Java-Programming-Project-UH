@@ -34,11 +34,11 @@ public class View {
     JPanel panelTop = new JPanel();
     JPanel panelBottom = new JPanel(new GridLayout(1, 0));
     JPanel words = new JPanel();
-    private final JComboBox firstYears;
-    private final JComboBox lastYears = new JComboBox();
     JLabel word1 = new JLabel("Search for something!");
     JLabel word2 = new JLabel("");
     JLabel word3 = new JLabel("");
+    private final JComboBox firstYears;
+    private final JComboBox lastYears = new JComboBox();
     private MainFileWordsPerLog mlw = new MainFileWordsPerLog("files/history/main.txt");
     private final int logTime = getLogTime();
     private WordsPerLog createDoc = new WordsPerLog(logTime, "files/history/");

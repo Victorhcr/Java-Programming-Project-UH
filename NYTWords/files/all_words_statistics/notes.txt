@@ -1,6 +1,6 @@
 war: 24
 love: 3
-test: 50
+test: 52
 World War 2: 1
 Rio de Janeiro: 4
 Brazil: 22
@@ -59,3 +59,6 @@ Hei: 1
 Alo: 1
 191: 2
 Finland: 1
+Hau: 3
+Belem: 1
+Jerusalem: 1

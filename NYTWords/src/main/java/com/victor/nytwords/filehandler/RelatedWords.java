@@ -29,7 +29,7 @@ public class RelatedWords {
      * Constructor of RelatedWords class
      * @param input Word written by the user
      * @param file Path in the computer to the history folder
-     * @throws FileNotFoundException 
+     * @throws java.io.FileNotFoundException File is not found
      */
     public RelatedWords(String input, String file) throws FileNotFoundException {
         this.word = input;

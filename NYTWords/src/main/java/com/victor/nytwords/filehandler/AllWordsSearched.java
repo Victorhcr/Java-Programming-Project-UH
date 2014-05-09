@@ -34,7 +34,7 @@ public final class AllWordsSearched extends WordHistory {
     /**
      * Update file of history of words used by users
      * @param word Word wrote by the user
-     * @throws IOException 
+     * @throws java.io.IOException In case file is not found
      */
     @Override
     public void updateWordsStatisticsFile(String word) throws IOException {

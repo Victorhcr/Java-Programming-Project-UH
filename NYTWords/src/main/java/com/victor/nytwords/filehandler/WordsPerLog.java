@@ -45,7 +45,7 @@ public final class WordsPerLog extends WordHistory {
     /**
      * Update file of log of words used by users
      * @param word Word wrote by the user
-     * @throws IOException 
+     * @throws java.io.IOException Something interrupts I/O
      */
     @Override
     public void updateWordsStatisticsFile(String word) throws IOException {
@@ -61,7 +61,7 @@ public final class WordsPerLog extends WordHistory {
     /**
      * Create log file document 
      * @param number Number of times the program was initialized
-     * @throws IOException 
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void createDoc(String number) throws IOException{
         Writer output;

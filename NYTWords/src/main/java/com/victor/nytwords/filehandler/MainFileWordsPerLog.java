@@ -30,8 +30,7 @@ public class MainFileWordsPerLog {
     
     /**
      * Starts to parse the file
-     * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws FileNotFoundException In case file is not found
      */
     public void start() throws FileNotFoundException, IOException{
         this.logTime = getData(new FileReader(this.file));
@@ -42,6 +41,7 @@ public class MainFileWordsPerLog {
      * This method gets data from file in user computer and gets the number of
      * times the program was used
      * @param main FileReader parameter to read file
+     * @return Return the number of documents in history folder
      */
     public int getData(FileReader main) {
         BufferedReader br = null;
@@ -68,7 +68,7 @@ public class MainFileWordsPerLog {
     
     /**
      * Write Main file
-     * @throws IOException 
+     * @throws java.io.IOException Something interrupts I/O
      */
     public void writeFileMain() throws IOException{
         FileWriter main = new FileWriter("files/history/main.txt");

@@ -40,8 +40,7 @@ public class Chart extends JFrame {
 
     /**
      * Plot data from API
-     * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws FileNotFoundException File is not found
      */
     public Chart() throws FileNotFoundException, IOException {
         super("New York Times Articles");
@@ -98,8 +97,8 @@ public class Chart extends JFrame {
     }
 
     /**
-     * Add related words to the plot frame
-     * @throws FileNotFoundException 
+     * Add related words to the plot frame 
+     * @throws java.io.FileNotFoundException File is not found
      */
     public void addRelatedWords() throws FileNotFoundException {
         RelatedWords rl = new RelatedWords(this.word,"files/history/main.txt");

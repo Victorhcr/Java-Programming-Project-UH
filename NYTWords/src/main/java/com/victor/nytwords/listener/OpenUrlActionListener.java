@@ -19,7 +19,7 @@ public class OpenUrlActionListener implements java.awt.event.ActionListener {
     /**
      * Constructor of OpenUrlActionListener class
      * @param input URL String to article site
-     * @throws MalformedURLException 
+     * @throws java.net.MalformedURLException URL in wrong format
      */
     public OpenUrlActionListener(String input) throws MalformedURLException {
         this.link = input;
